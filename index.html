@@ -419,25 +419,34 @@
         <h2>Entrar no teste fechado do Guied</h2>
         <p>Preencha seu e-mail para receber o convite assim que liberar mais vagas.</p>
 
-        <form class="form" action="https://formsubmit.co/guiedsuporte@gmail.com" method="POST">
-
+        <form id="form-guied" class="form" action="https://formspree.io/f/meoyzkrq" method="POST">
             <input type="email" name="email" placeholder="Seu melhor e-mail" required>
-
-            <input type="hidden" name="_captcha" value="false">
-            <input type="hidden" name="_subject" value="Nova inscrição no teste fechado do Guied">
-            <input type="hidden" name="_redirect" value="true">
-
-            <!-- Corrigem problemas de redirecionamento no FormSubmit -->
-            <input type="hidden" name="_referrer" value="https://yhysoka.github.io/">
-            <input type="hidden" name="_origin" value="https://yhysoka.github.io">
-
-            <!-- Página de obrigado -->
-            <input type="hidden" name="_next" value="https://yhysoka.github.io/paginas-guied/obrigado.html">
-
-            <input type="hidden" name="_template" value="table">
-
             <button type="submit">Quero participar</button>
         </form>
+
+        <p id="msg" style="display:none; color:#00e676; margin-top:15px; font-weight:600;">
+            Em breve você receberá as instruções junto com o link no email
+        </p>
+
+        <script>
+            const form = document.getElementById("form-guied");
+            const msg = document.getElementById("msg");
+
+            form.addEventListener("submit", async (e) => {
+                e.preventDefault();
+                let data = new FormData(form);
+
+                await fetch(form.action, {
+                    method: "POST",
+                    body: data,
+                    headers: { "Accept": "application/json" }
+                });
+
+                msg.style.display = "block";  // mostra mensagem de sucesso
+                form.reset();                 // limpa o campo
+            });
+        </script>
+
 
         <p class="cta-whats">
             Prefere falar direto? <a href="https://wa.me/558591859751" target="_blank">Clique aqui para falar pelo
