@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guied – Inteligência para Motoristas</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" type="image/png" href="logo.png" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header slide-down">
+        <div class="header-left">
+            <img src="logo.png" class="logo-img" alt="Guied" />
+            <span class="logo-text">Guied</span>
+        </div>
+        <nav>
+            <a href="#hero">Início</a>
+            <a href="#funciona">Como funciona</a>
+            <a href="#modos">Modos</a>
+            <a href="#planos">Planos</a>
+            <a href="#valor">Por que 0,33/dia?</a>
+            <a href="#antesdepois">Antes x Depois</a>
+            <a href="#depoimentos">Avaliações</a>
+            <a href="#suporte">Suporte</a>
+            <button class="btn-header" onclick="scrollToCTA()">Participar do teste</button>
+        </nav>
+    </header>
+
+    <!-- CRONÔMETRO / TOPO -->
+    <section class="cronometro fade-in">
+        <div class="cronometro-box">
+            <h3>Lançamento oficial em:</h3>
+
+            <div class="timer" id="countdown">00d 00h 00m 00s</div>
+
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+
+            <p class="testando">
+                Motoristas registrados no teste fechado:
+                <span class="numero-teste">1580</span>
+            </p>
+        </div>
+    </section>
+
+    <!-- HERO -->
+    <section class="hero fade-in" id="hero">
+        <div class="hero-left">
+            <div class="badge">Novo • Assistente inteligente para motoristas</div>
+
+            <h1>Controle suas corridas com <span>inteligência de verdade.</span></h1>
+
+            <p>
+                O Guied analisa automaticamente valor, KM e rota das corridas para te mostrar
+                se realmente compensa aceitar. Mais lucro, mais segurança, menos estresse.
+            </p>
+
+            <div class="hero-actions">
+                <button class="btn-main" onclick="scrollToCTA()">Quero participar do teste fechado</button>
+                <button class="btn-ghost" onclick="scrollToValor()">Entender como funciona</button>
+            </div>
+
+            <p class="valor-dia">
+                <b>Plano PRO: R$ 9,90/mês</b> – isso dá apenas <b>R$ 0,33 por dia</b>.
+            </p>
+
+            <div class="hero-meta">
+                <span>✔ Funciona em Uber, 99 e iFood</span>
+                <span>✔ Detector inteligente de corridas ruins</span>
+                <span>✔ Pensado por motorista, para motorista</span>
+            </div>
+        </div>
+
+        <div class="hero-right">
+            <div class="hero-phone">
+                <img src="tela.jpeg" alt="Tela inicial do Guied" />
+            </div>
+        </div>
+    </section>
+
+    <!-- COMPATIBILIDADE -->
+    <section class="apps fade-in" id="apps">
+        <h2>Compatível com os apps que você já usa</h2>
+        <p class="sub">O Guied funciona por cima de qualquer app: não precisa mexer em nada.</p>
+
+        <div class="apps-grid">
+            <div class="app-card">
+                <img src="icons/uber.png" alt="Uber">
+            </div>
+
+            <div class="app-card">
+                <img src="icons/99.png" alt="99">
+            </div>
+
+            <div class="app-card">
+                <img src="icons/ifood.png" alt="iFood">
+            </div>
+        </div>
+    </section>
+
+    <!-- COMO FUNCIONA -->
+    <section class="funciona fade-in" id="funciona">
+        <h2>Como o Guied funciona na prática</h2>
+        <p class="sub">Você continua usando o app normal. O Guied faz o trabalho pesado.</p>
+
+        <div class="funciona-grid">
+
+            <div class="funciona-card">
+                <div class="icon">📡</div>
+                <h3>1. Detecta a corrida</h3>
+                <p>Quando aparece uma corrida, o Guied identifica valor, KM e app em menos de 1 segundo.</p>
+            </div>
+
+            <div class="funciona-card">
+                <div class="icon">🧠</div>
+                <h3>2. Analisa o lucro</h3>
+                <p>Calcula automaticamente se aquela corrida faz sentido para seu objetivo e modo atual.</p>
+            </div>
+
+            <div class="funciona-card">
+                <div class="icon">⚠️</div>
+                <h3>3. Considera o risco</h3>
+                <p>Usa zonas bloqueadas e configurações para evitar áreas perigosas ou que você não gosta.</p>
+            </div>
+
+            <div class="funciona-card">
+                <div class="icon">✅</div>
+                <h3>4. Mostra o veredito</h3>
+                <p>O HUD flutuante mostra modo, motivo e detector ON/OFF, ajudando a decidir com clareza.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- LUCROS / NÚMEROS -->
+    <section class="lucros fade-in">
+        <h2>O que muda no seu bolso</h2>
+        <p class="sub">Não é milagre. É decisão inteligente em cada corrida.</p>
+
+        <div class="lucro-grid">
+
+            <div class="lucro-card">
+                <h3>+ R$ 20 a R$ 50 por dia</h3>
+                <p>Só evitando corridas que não compensam, sem rodar mais por isso.</p>
+            </div>
+
+            <div class="lucro-card">
+                <h3>+ 15% a 25% de lucro/hora</h3>
+                <p>Você trabalha com estratégia, não apenas no automático.</p>
+            </div>
+
+            <div class="lucro-card">
+                <h3>- 30 a 60 min de estresse</h3>
+                <p>Menos tempo quebrando a cabeça e aceitando corrida na dúvida.</p>
+            </div>
+
+        </div>
+
+        <p class="lucro-texto">
+            Uma única corrida boa que você não perde já pagará o mês inteiro da assinatura.
+        </p>
+    </section>
+
+    <!-- DISPONÍVEL EM TELAS / PRINTS -->
+    <section class="prints fade-in" id="prints">
+        <h2>Algumas telas do Guied</h2>
+        <p class="sub">Visual pensado para foco, clareza e uso no dia-a-dia.</p>
+
+        <div class="prints-grid">
+            <div class="print-wrap"><img src="print1.jpg" alt="HUD do Guied" /></div>
+            <div class="print-wrap"><img src="print2.jpg" alt="Modos inteligentes" /></div>
+            <div class="print-wrap"><img src="print3.jpg" alt="Configurações e metas" /></div>
+        </div>
+    </section>
+
+    <!-- POR QUE 0,33/DIA VALE A PENA -->
+    <section class="valor fade-in" id="valor">
+        <h2>Por que R$ 0,33 por dia vale tanto?</h2>
+        <p class="sub">Colocando números na mesa.</p>
+
+        <div class="valor-grid">
+            <div class="valor-card">
+                <h3>1 corrida ruim evitada/dia</h3>
+                <p>Se você evitar uma corrida ruim de R$ 6,00 que te faria rodar demais, já pagou o app.</p>
+            </div>
+
+            <div class="valor-card">
+                <h3>R$ 9,90 / mês</h3>
+                <p>Equivalente a R$ 0,33 por dia. Menos que um chiclete no posto.</p>
+            </div>
+
+            <div class="valor-card">
+                <h3>Retorno 10x, 20x…</h3>
+                <p>Quem usa com disciplina pode recuperar o valor da assinatura em 1 ou 2 corridas.</p>
+            </div>
+        </div>
+
+        <p class="valor-extra">
+            O Guied não é gasto. É ferramenta de trabalho. Quanto mais você dirige, mais faz sentido.
+        </p>
+    </section>
+
+    <!-- ANTES X DEPOIS -->
+    <section class="antesdepois fade-in" id="antesdepois">
+        <h2>Antes x Depois de usar o Guied</h2>
+        <p class="sub">O mesmo motorista. Só mudou a forma de decidir corridas.</p>
+
+        <div class="ad-grid">
+            <div class="ad-card ad-antes">
+                <h3>Sem Guied</h3>
+                <ul>
+                    <li>❌ Aceita corrida ruim “na dúvida”.</li>
+                    <li>❌ Não percebe quando o KM está baixo.</li>
+                    <li>❌ Só percebe que foi furada depois que já rodou demais.</li>
+                    <li>❌ Estresse alto e lucro imprevisível.</li>
+                </ul>
+            </div>
+
+            <div class="ad-card ad-depois">
+                <h3>Com Guied</h3>
+                <ul>
+                    <li>✅ HUD mostra se compensa ou não.</li>
+                    <li>✅ Mínimo por KM configurado do seu jeito.</li>
+                    <li>✅ Zonas perigosas ou ruins bloqueadas.</li>
+                    <li>✅ Mais controle sobre horas, risco e resultado.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODOS -->
+    <section class="modos fade-in" id="modos">
+        <h2>Modos inteligentes para cada tipo de dia</h2>
+        <p class="sub">Você escolhe o objetivo. O Guied adapta as decisões.</p>
+
+        <div class="modos-grid">
+
+            <div class="modo-card">
+                <div class="modo-icon">🚩</div>
+                <h3>Iniciante</h3>
+                <p>Recomendado para quem está começando. Foca em segurança e corridas mais simples.</p>
+            </div>
+
+            <div class="modo-card">
+                <div class="modo-icon">💸</div>
+                <h3>Ganhar Mais</h3>
+                <p>Usa mínimo por KM personalizado para aceitar apenas corridas com bom retorno.</p>
+            </div>
+
+            <div class="modo-card">
+                <div class="modo-icon">💰</div>
+                <h3>Economia</h3>
+                <p>Ideal para corridas curtas, diretas e bem pagas, reduzindo rodagem desnecessária.</p>
+            </div>
+
+            <div class="modo-card">
+                <div class="modo-icon">🛣️</div>
+                <h3>Longas Distâncias</h3>
+                <p>Focado em viagens longas que realmente compensam, evitando volta no vazio.</p>
+            </div>
+
+            <div class="modo-card">
+                <div class="modo-icon">⚡</div>
+                <h3>Flash / Pico</h3>
+                <p>Para horários de alto movimento e promoções, aproveitando o melhor do dia.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- PLANOS -->
+    <section class="planos fade-in" id="planos">
+        <h2>Planos do Guied</h2>
+        <p class="sub">Comece no Free e evolua quando fizer sentido.</p>
+
+        <div class="planos-grid">
+
+            <div class="plano-card">
+                <h3 class="plano-nome free">FREE</h3>
+                <ul>
+                    <li>✔ HUD flutuante básico</li>
+                    <li>✔ Detector inteligente ativo</li>
+                    <li>✔ Modo Iniciante</li>
+                    <li>✖ Modos avançados</li>
+                    <li>✖ Mínimo por KM personalizado</li>
+                    <li>✖ Zonas perigosas / bloqueadas</li>
+                </ul>
+            </div>
+
+            <div class="plano-card destaque">
+                <h3 class="plano-nome pro">PRO</h3>
+                <ul>
+                    <li>✔ Tudo do FREE</li>
+                    <li>✔ Modos avançados (Turbo, Longas, Economia)</li>
+                    <li>✔ Mínimo por KM personalizado</li>
+                    <li>✔ Zonas perigosas / bloqueadas</li>
+                    <li>✔ Atualizações contínuas</li>
+                </ul>
+
+                <p class="plano-preco">R$ 9,90/mês</p>
+                <p class="plano-dia">Apenas <b>R$ 0,33 por dia</b></p>
+            </div>
+
+            <div class="plano-card">
+                <h3 class="plano-nome proplus">PRO+</h3>
+                <ul>
+                    <li>✔ Tudo do PRO</li>
+                    <li>✔ Meta diária com gráfico</li>
+                    <li>✔ Relatórios avançados (em desenvolvimento)</li>
+                    <li>✔ Prioridade em novas funções</li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FUNÇÕES FUTURAS -->
+    <section class="futuro fade-in" id="futuro">
+        <h2>Funções futuras já planejadas</h2>
+        <p class="sub">Tudo que está em desenvolvimento você já acompanha desde o início.</p>
+
+        <div class="futuro-grid">
+            <div class="futuro-card">
+                <h3>Dashboard financeiro completo</h3>
+                <p>Resumo diário, semanal e mensal de ganhos, KM, tempo online e média por hora.</p>
+            </div>
+
+            <div class="futuro-card">
+                <h3>Meta diária com gráfico</h3>
+                <p>Acompanhamento visual em tempo real de quanto falta para bater sua meta.</p>
+            </div>
+
+            <div class="futuro-card">
+                <h3>Relatórios inteligentes</h3>
+                <p>Melhores horários, regiões mais lucrativas e seu melhor estilo de corrida.</p>
+            </div>
+
+            <div class="futuro-card">
+                <h3>Alertas inteligentes</h3>
+                <p>Avisos para não estourar horário, evitar áreas problemáticas e descansar na hora certa.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- DEPOIMENTOS -->
+    <section class="depoimentos fade-in" id="depoimentos">
+        <h2>Avaliações de motoristas</h2>
+        <p class="sub">Depoimentos de quem já está testando o Guied.</p>
+
+        <div class="carrossel">
+            <div class="carrossel-interno">
+
+                <div class="depo-card">
+                    <p class="stars">★★★★★</p>
+                    <p>"Eu aceitava muita corrida ruim sem perceber. Com o Guied, fico mais tranquilo para recusar."</p>
+                    <h4>Adriano – Uber e 99</h4>
+                </div>
+
+                <div class="depo-card">
+                    <p class="stars">★★★★★</p>
+                    <p>"O modo Ganhar Mais vale cada centavo. Hoje eu entendo bem melhor o meu lucro por KM."</p>
+                    <h4>Lincon – Uber X</h4>
+                </div>
+
+                <div class="depo-card">
+                    <p class="stars">★★★★☆</p>
+                    <p>"Uso principalmente à noite para fugir de áreas que não gosto. Me sinto bem mais segura."</p>
+                    <h4>Natália – 99 Pop</h4>
+                </div>
+
+                <div class="depo-card">
+                    <p class="stars">★★★★★</p>
+                    <p>"Parece simples, mas só de ver o motivo na tela já tira muita dúvida e ansiedade."</p>
+                    <h4>Rafael – ifood</h4>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SUPORTE -->
+    <section class="suporte fade-in" id="suporte">
+        <h2>Suporte & Sugestões</h2>
+        <p class="sub">O Guied está em construção junto com os motorista.</p>
+
+        <div class="suporte-grid">
+
+            <a href="https://wa.me/558591859751" class="suporte-card" target="_blank">
+                <div class="suporte-icon">💬</div>
+                <h3>WhatsApp</h3>
+                <p>Suporte direto para Dúvidas e ajuda.</p>
+            </a>
+
+            <a href="https://wa.me/558591859751?text=Tenho%20uma%20sugest%C3%A3o%20para%20o%20Guied"
+                class="suporte-card" target="_blank">
+                <div class="suporte-icon">💡</div>
+                <h3>Sugestões</h3>
+                <p>Quer ver alguma função no app? Envie sua ideia.</p>
+            </a>
+
+            <a href="mailto:guiedsuporte@gmail.com" class="suporte-card">
+                <div class="suporte-icon">📧</div>
+                <h3>E-mail</h3>
+                <p>Contato mais formal ou parcerias.</p>
+            </a>
+
+        </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section class="cta fade-in" id="cta">
+        <h2>Entrar no teste fechado do Guied</h2>
+        <p>Preencha seu e-mail para receber o convite assim que liberar mais vagas.</p>
+
+        <form class="form" action="https://formsubmit.co/guiedsuporte@gmail.com" method="POST">
+
+            <input type="email" name="email" placeholder="Seu melhor e-mail" required>
+
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_subject" value="Nova inscrição no teste fechado do Guied">
+            <input type="hidden" name="_redirect" value="true">
+
+            <!-- Corrigem problemas de redirecionamento no FormSubmit -->
+            <input type="hidden" name="_referrer" value="https://yhysoka.github.io/">
+            <input type="hidden" name="_origin" value="https://yhysoka.github.io">
+
+            <!-- Página de obrigado -->
+            <input type="hidden" name="_next" value="https://yhysoka.github.io/paginas-guied/obrigado.html">
+
+            <input type="hidden" name="_template" value="table">
+
+            <button type="submit">Quero participar</button>
+        </form>
+
+        <p class="cta-whats">
+            Prefere falar direto? <a href="https://wa.me/558591859751" target="_blank">Clique aqui para falar pelo
+                WhatsApp.</a>.
+        </p>
+    </section>
+
+
+
+
+    <p class="cta-whats">
+        Prefere falar direto? <a href="https://wa.me/558591859751" target="_blank">Clique aqui para falar pelo
+            WhatsApp.</a>.
+    </p>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="footer-left">
+                <img src="logo.png" class="footer-logo" alt="Guied" />
+                <span class="footer-name">Guied</span>
+            </div>
+            <div class="footer-links">
+                <a href="#hero">Início</a>
+                <a href="#planos">Planos</a>
+                <a href="#valor">0,33/dia</a>
+                <a href="#depoimentos">Avaliações</a>
+                <a href="#suporte">Suporte</a>
+            </div>
+        </div>
+
+        <p class="footer-copy">
+            © 2025 Guied – Todos os direitos reservados. Projeto em desenvolvimento junto com motoristas reais.
+        </p>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script>
+        function iniciarContagemReal() {
+
+            // Dia REAL que vai liberar
+            const lancamento = new Date("2025-12-16T00:00:00");
+
+            // Dia que a contagem de dias completos começou oficialmente
+            const inicio = new Date("2025-12-03T00:00:00");
+
+            function atualizar() {
+                const agora = new Date();
+                const diff = lancamento - agora;
+
+                if (diff <= 0) {
+                    document.getElementById("countdown").innerHTML = "Disponível!";
+                    document.getElementById("progressBar").style.width = "100%";
+                    return;
+                }
+
+                const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const horas = Math.floor((diff / (1000 * 60 * 60)) % 24);
+                const minutos = Math.floor((diff / (1000 * 60)) % 60);
+                const segundos = Math.floor((diff / 1000) % 60);
+
+                document.getElementById("countdown").innerHTML =
+                    `${dias}d ${horas}h ${minutos}m ${segundos}s`;
+
+                const total = lancamento - inicio;
+                const perc = (1 - diff / total) * 100;
+                document.getElementById("progressBar").style.width = perc + "%";
+            }
+
+            atualizar();
+            setInterval(atualizar, 1000);
+        }
+
+        iniciarContagemReal();
+
+        // SCROLL SUAVE
+        function scrollToCTA() {
+            document.getElementById("cta").scrollIntoView({ behavior: "smooth" });
+        }
+
+        function scrollToValor() {
+            document.getElementById("valor").scrollIntoView({ behavior: "smooth" });
+        }
+    </script>
+
+
+
+</body>
+
+</html>

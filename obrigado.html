@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obrigado – Guied</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        body {
+            background: #000;
+            color: #fff;
+            font-family: "Inter", sans-serif;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 480px;
+            margin: auto;
+            background: rgba(0, 180, 255, 0.06);
+            border: 1px solid rgba(0, 180, 255, 0.22);
+            padding: 40px 25px;
+            border-radius: 16px;
+            box-shadow: 0 0 30px rgba(0, 180, 255, .35);
+            animation: fadeIn .9s ease forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            background: linear-gradient(90deg, #00e5ff, #00baff);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        p {
+            opacity: .84;
+            font-size: 16px;
+            margin-bottom: 16px;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 16px;
+            color: #00d5ff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: .2s;
+        }
+
+        a:hover {
+            color: #4fe3ff;
+        }
+
+        .logo {
+            width: 70px;
+            margin-bottom: 18px;
+            opacity: .9;
+        }
+
+        .btn-voltar {
+            margin-top: 25px;
+            background: linear-gradient(90deg, #007bff, #00c6ff);
+            color: #fff;
+            border: none;
+            padding: 14px 30px;
+            border-radius: 999px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 0 22px rgba(0, 180, 255, .55);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-voltar:hover {
+            filter: brightness(1.08);
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <img src="logo.png" alt="Guied" class="logo">
+
+        <h1>Seu convite foi enviado!</h1>
+
+        <p>
+            Obrigado por se inscrever no teste fechado do Guied.
+            Em breve você receberá o código de acesso e todas as instruções no seu e-mail.
+        </p>
+
+        <a href="https://yhysoka.github.io/paginas-guied/" class="btn-voltar">Voltar para o site</a>
+
+    </div>
+
+</body>
+
+</html>
