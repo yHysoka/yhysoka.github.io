@@ -28,24 +28,32 @@
             <a href="#antesdepois">Antes x Depois</a>
             <a href="#depoimentos">Avaliações</a>
             <a href="#suporte">Suporte</a>
-            <button class="btn-header" onclick="scrollToCTA()">Participar do teste</button>
         </nav>
     </header>
 
     <!-- CRONÔMETRO / TOPO -->
     <section class="cronometro fade-in">
         <div class="cronometro-box">
-            <h3>Lançamento oficial em:</h3>
+            <h3>Disponivel na playstore</h3>
 
-            <div class="timer" id="countdown">00d 00h 00m 00s</div>
+            <button class="btn-main" onclick="abrirLink()">
+                Baixar o app
+            </button>
+
+            <script>
+                function abrirLink() {
+                    window.location.href = "https://play.google.com/store/apps/details?id=com.guied.app";
+                }
+            </script>
+
 
             <div class="progress-container">
                 <div class="progress-bar" id="progressBar"></div>
             </div>
 
             <p class="testando">
-                Motoristas registrados no teste fechado:
-                <span class="numero-teste">1580</span>
+                Motoristas em atividade agora:
+                <span class="numero-teste">1239</span>
             </p>
         </div>
     </section>
@@ -63,7 +71,6 @@
             </p>
 
             <div class="hero-actions">
-                <button class="btn-main" onclick="scrollToCTA()">Quero participar do teste fechado</button>
                 <button class="btn-ghost" onclick="scrollToValor()">Entender como funciona</button>
             </div>
 
@@ -414,50 +421,11 @@
         </div>
     </section>
 
-    <!-- CTA FINAL -->
-    <section class="cta fade-in" id="cta">
-        <h2>Entrar no teste fechado do Guied</h2>
-        <p>Preencha seu e-mail para receber o convite assim que liberar mais vagas.</p>
-
-        <form id="form-guied" class="form" action="https://formspree.io/f/meoyzkrq" method="POST">
-            <input type="email" name="email" placeholder="Seu melhor e-mail" required>
-            <button type="submit">Quero participar</button>
-        </form>
-
-        <p id="msg" style="display:none; color:#00e676; margin-top:15px; font-weight:600;">
-            Em breve você receberá as instruções junto com o link no email
-        </p>
-
-        <script>
-            const form = document.getElementById("form-guied");
-            const msg = document.getElementById("msg");
-
-            form.addEventListener("submit", async (e) => {
-                e.preventDefault();
-                let data = new FormData(form);
-
-                await fetch(form.action, {
-                    method: "POST",
-                    body: data,
-                    headers: { "Accept": "application/json" }
-                });
-
-                msg.style.display = "block";  // mostra mensagem de sucesso
-                form.reset();                 // limpa o campo
-            });
-        </script>
-
-
-        <p class="cta-whats">
-            Prefere falar direto? <a href="https://wa.me/558591859751" target="_blank">Clique aqui para falar pelo
-                WhatsApp.</a>.
-        </p>
-    </section>
 
 
 
 
- 
+
     </section>
 
     <footer class="footer">
