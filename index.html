@@ -34,7 +34,7 @@
     <!-- CRONÔMETRO / TOPO -->
     <section class="cronometro fade-in">
         <div class="cronometro-box">
-            <h3>Disponivel na playstore</h3>
+            <h3>Disponível na playstore</h3>
 
             <button class="btn-main" onclick="abrirLink()">
                 Baixar o app
@@ -53,7 +53,7 @@
 
             <p class="testando">
                 Motoristas em atividade agora:
-                <span class="numero-teste">1239</span>
+                <span class="numero-teste" id="motoristasAtivos">1239</span>
             </p>
         </div>
     </section>
@@ -496,6 +496,34 @@
             document.getElementById("valor").scrollIntoView({ behavior: "smooth" });
         }
     </script>
+
+    <script>
+        let motoristas = 2361;
+
+        const min = 1130; // limite mínimo plausível
+        const max = 1932; // limite máximo plausível
+
+        function variarMotoristas() {
+            // Variação pequena e aleatória
+            const variacao = Math.floor(Math.random() * 5) + 1;
+            const sobeOuDesce = Math.random() < 0.5 ? -1 : 1;
+
+            motoristas += variacao * sobeOuDesce;
+
+            // Mantém dentro dos limites
+            if (motoristas < min) motoristas = min;
+            if (motoristas > max) motoristas = max;
+
+            document.getElementById("motoristasAtivos").textContent = motoristas;
+
+            // Próxima atualização em tempo irregular (3 a 7s)
+            const proximoTempo = Math.floor(Math.random() * 1000) + 3000;
+            setTimeout(variarMotoristas, proximoTempo);
+        }
+
+        variarMotoristas();
+    </script>
+
 
 
 
