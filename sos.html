@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guied SOS</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background:#0f172a; color:#fff; }
+    .top { padding:16px; border-bottom:1px solid rgba(255,255,255,.08); }
+    .title { color:#00e0ff; font-size:22px; font-weight:700; }
+    .sub { color:#cbd5e1; margin-top:4px; font-size:14px; }
+    .info { padding:16px; background:#111827; border-bottom:1px solid rgba(255,255,255,.08); }
+    #map { height: calc(100vh - 140px); width:100%; }
+    .badge { display:inline-block; padding:8px 12px; border-radius:999px; font-weight:700; }
+    .active { background:rgba(255,0,0,.18); color:#ff8a8a; }
+    .inactive { background:rgba(255,255,255,.08); color:#ddd; }
+  </style>
+</head>
+<body>
+  <div class="top">
+    <div class="title">Guied SOS</div>
+    <div class="sub">Rastreamento em tempo real</div>
+  </div>
+
+  <div class="info">
+    <div id="badge" class="badge inactive">Carregando...</div>
+    <div id="details" style="margin-top:10px; color:#cbd5e1;">Aguardando sessão...</div>
+  </div>
+
+  <div id="map"></div>
+
+  <script>
+    const SUPABASE_URL = "https://wziqqebullgyzdmivqmq.supabase.co";
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind6aXFxZWJ1bGxneXpkbWl2cW1xIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM2MzAxNDksImV4cCI6MjA3OTIwNjE0OX0.jHTEjwUH7apwkKFwUjPNoegK2XI3V_aKnh1JQcxtx4o";
+
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get("token");
+
+    const badge = document.getElementById("badge");
+    const details = document.getElementById("details");
+
+    const map = L.map("map").setView([-3.7319, -38.5267], 13);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+      attribution: "&copy; OpenStreetMap"
+    }).addTo(map);
+
+    let marker = null;
+    let sessionId = null;
+
+    function render(data) {
+      const active = data.active === true;
+      badge.textContent = active ? "SOS ATIVO" : "SOS ENCERRADO";
+      badge.className = "badge " + (active ? "active" : "inactive");
+
+      details.innerHTML = `
+        Última atualização: ${data.updated_at ? new Date(data.updated_at).toLocaleString("pt-BR") : "-"}<br>
+        Precisão: ${data.accuracy ?? "-"}<br>
+        Velocidade: ${data.speed ?? "-"}<br>
+        Local: ${data.location_label ?? "Indisponível"}
+      `;
+
+      if (data.lat != null && data.lng != null) {
+        if (!marker) {
+          marker = L.marker([data.lat, data.lng]).addTo(map);
+          map.setView([data.lat, data.lng], 16);
+        } else {
+          marker.setLatLng([data.lat, data.lng]);
+          map.panTo([data.lat, data.lng]);
+        }
+      }
+    }
+
+    async function loadSession() {
+      if (!token) {
+        badge.textContent = "Token inválido";
+        details.textContent = "Link sem token.";
+        return;
+      }
+
+      const { data, error } = await supabaseClient.rpc("get_sos_session_by_token", {
+        p_token: token
+      });
+
+      if (error || !data || !data.length) {
+        badge.textContent = "Sessão não encontrada";
+        details.textContent = error?.message || "Nenhuma sessão encontrada.";
+        return;
+      }
+
+      const session = data[0];
+      sessionId = session.session_id;
+      render(session);
+
+      supabaseClient
+        .channel("sos-" + sessionId)
+        .on(
+          "postgres_changes",
+          {
+            event: "*",
+            schema: "public",
+            table: "sos_sessions",
+            filter: `session_id=eq.${sessionId}`
+          },
+          (payload) => {
+            render(payload.new);
+          }
+        )
+        .subscribe();
+    }
+
+    loadSession();
+  </script>
+</body>
+</html>
