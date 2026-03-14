@@ -10,29 +10,476 @@
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
   <style>
-    body { margin: 0; font-family: Arial, sans-serif; background:#0f172a; color:#fff; }
-    .top { padding:16px; border-bottom:1px solid rgba(255,255,255,.08); }
-    .title { color:#00e0ff; font-size:22px; font-weight:700; }
-    .sub { color:#cbd5e1; margin-top:4px; font-size:14px; }
-    .info { padding:16px; background:#111827; border-bottom:1px solid rgba(255,255,255,.08); }
-    #map { height: calc(100vh - 140px); width:100%; }
-    .badge { display:inline-block; padding:8px 12px; border-radius:999px; font-weight:700; }
-    .active { background:rgba(255,0,0,.18); color:#ff8a8a; }
-    .inactive { background:rgba(255,255,255,.08); color:#ddd; }
+    :root {
+      --bg: #070b14;
+      --panel: rgba(15, 23, 42, 0.82);
+      --panel-strong: rgba(17, 24, 39, 0.95);
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --primary: #00d4ff;
+      --primary-soft: rgba(0, 212, 255, 0.16);
+      --danger: #ff4d6d;
+      --danger-soft: rgba(255, 77, 109, 0.16);
+      --success: #22c55e;
+      --success-soft: rgba(34, 197, 94, 0.16);
+      --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+      --radius-xl: 24px;
+      --radius-lg: 18px;
+      --radius-md: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background:
+        radial-gradient(circle at top right, rgba(0, 212, 255, 0.10), transparent 28%),
+        radial-gradient(circle at top left, rgba(255, 77, 109, 0.10), transparent 24%),
+        linear-gradient(180deg, #08101d 0%, #050911 100%);
+      color: var(--text);
+      font-family: Inter, Arial, sans-serif;
+      min-height: 100%;
+    }
+
+    body {
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 26px;
+      border-radius: var(--radius-xl);
+      background: linear-gradient(135deg, rgba(10, 18, 35, 0.96), rgba(17, 24, 39, 0.90));
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      margin-bottom: 18px;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 85% 20%, rgba(0, 212, 255, 0.12), transparent 22%),
+        radial-gradient(circle at 15% 10%, rgba(255, 77, 109, 0.10), transparent 20%);
+      pointer-events: none;
+    }
+
+    .hero-top {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, rgba(0, 212, 255, 0.22), rgba(255, 77, 109, 0.18));
+      border: 1px solid rgba(255,255,255,0.10);
+      font-size: 24px;
+      box-shadow: 0 12px 30px rgba(0,0,0,.28);
+    }
+
+    .title {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin: 0;
+    }
+
+    .subtitle {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .status-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border: 1px solid transparent;
+      backdrop-filter: blur(10px);
+    }
+
+    .badge-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      flex: 0 0 auto;
+    }
+
+    .badge.active {
+      background: var(--danger-soft);
+      color: #ff9bad;
+      border-color: rgba(255, 77, 109, 0.30);
+    }
+
+    .badge.active .badge-dot {
+      background: var(--danger);
+      box-shadow: 0 0 0 6px rgba(255, 77, 109, 0.16);
+    }
+
+    .badge.inactive {
+      background: rgba(255,255,255,0.06);
+      color: #dbe4ef;
+      border-color: rgba(255,255,255,0.08);
+    }
+
+    .badge.inactive .badge-dot {
+      background: #94a3b8;
+      box-shadow: 0 0 0 6px rgba(148, 163, 184, 0.14);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--panel-strong);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .card-body {
+      padding: 20px;
+    }
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 800;
+      margin: 0 0 18px;
+      color: #fff;
+      letter-spacing: -0.01em;
+    }
+
+    .info-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .info-item {
+      padding: 14px;
+      border-radius: var(--radius-lg);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .info-label {
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 6px;
+    }
+
+    .info-value {
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.5;
+      word-break: break-word;
+    }
+
+    .actions {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .btn {
+      width: 100%;
+      appearance: none;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      font-weight: 700;
+      font-size: 14px;
+      transition: 0.2s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #00c8ff, #009dff);
+      color: white;
+      box-shadow: 0 10px 30px rgba(0, 157, 255, 0.25);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.04);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.06);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.10);
+    }
+
+    .map-card {
+      min-height: 620px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .map-head {
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      background: rgba(255,255,255,0.02);
+    }
+
+    .map-head h2 {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .map-head span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .map-wrap {
+      padding: 14px;
+      flex: 1;
+    }
+
+    #map {
+      width: 100%;
+      height: 100%;
+      min-height: 540px;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .empty-state {
+      padding: 28px 20px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px dashed rgba(255,255,255,0.12);
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    .footer-note {
+      margin-top: 16px;
+      text-align: center;
+      color: rgba(148, 163, 184, 0.8);
+      font-size: 12px;
+    }
+
+    .leaflet-popup-content-wrapper,
+    .leaflet-popup-tip {
+      background: #0f172a;
+      color: white;
+    }
+
+    @media (max-width: 980px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .map-card {
+        min-height: unset;
+      }
+
+      #map {
+        min-height: 420px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 14px;
+      }
+
+      .hero {
+        padding: 18px;
+      }
+
+      .title {
+        font-size: 23px;
+      }
+
+      .subtitle {
+        font-size: 13px;
+      }
+
+      .card-body,
+      .map-head {
+        padding: 16px;
+      }
+
+      .map-wrap {
+        padding: 12px;
+      }
+
+      #map {
+        min-height: 360px;
+        border-radius: 16px;
+      }
+
+      .badge {
+        width: 100%;
+        justify-content: center;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="top">
-    <div class="title">Guied SOS</div>
-    <div class="sub">Rastreamento em tempo real</div>
-  </div>
+  <div class="container">
+    <section class="hero">
+      <div class="hero-top">
+        <div class="brand">
+          <div class="brand-icon">🚨</div>
+          <div>
+            <h1 class="title">Guied SOS</h1>
+            <p class="subtitle">
+              Rastreamento de emergência em tempo real com atualização automática de localização.
+            </p>
+          </div>
+        </div>
 
-  <div class="info">
-    <div id="badge" class="badge inactive">Carregando...</div>
-    <div id="details" style="margin-top:10px; color:#cbd5e1;">Aguardando sessão...</div>
-  </div>
+        <div class="status-wrap">
+          <div id="badge" class="badge inactive">
+            <span class="badge-dot"></span>
+            <span>Carregando...</span>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <div id="map"></div>
+    <section class="grid">
+      <aside class="card">
+        <div class="card-body">
+          <h2 class="section-title">Detalhes da sessão</h2>
+
+          <div class="info-list">
+            <div class="info-item">
+              <div class="info-label">Última atualização</div>
+              <div class="info-value" id="updatedAt">-</div>
+            </div>
+
+            <div class="info-item">
+              <div class="info-label">Local atual</div>
+              <div class="info-value" id="locationLabel">Aguardando localização...</div>
+            </div>
+
+            <div class="info-item">
+              <div class="info-label">Coordenadas</div>
+              <div class="info-value" id="coordinates">-</div>
+            </div>
+
+            <div class="info-item">
+              <div class="info-label">Precisão</div>
+              <div class="info-value" id="accuracy">-</div>
+            </div>
+
+            <div class="info-item">
+              <div class="info-label">Velocidade</div>
+              <div class="info-value" id="speed">-</div>
+            </div>
+
+            <div class="info-item">
+              <div class="info-label">Sessão</div>
+              <div class="info-value" id="sessionInfo">Aguardando...</div>
+            </div>
+          </div>
+
+          <div class="actions">
+            <a
+              id="openMapsBtn"
+              class="btn btn-primary"
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              📍 Abrir no Google Maps
+            </a>
+
+            <button id="recenterBtn" class="btn btn-secondary" type="button">
+              🎯 Centralizar no mapa
+            </button>
+          </div>
+
+          <div id="messageBox" class="footer-note"></div>
+        </div>
+      </aside>
+
+      <section class="card map-card">
+        <div class="map-head">
+          <div>
+            <h2>Mapa ao vivo</h2>
+            <span id="mapStatus">Aguardando dados da sessão...</span>
+          </div>
+        </div>
+        <div class="map-wrap">
+          <div id="map"></div>
+        </div>
+      </section>
+    </section>
+
+    <div class="footer-note">
+      Guied SOS • acompanhamento em tempo real
+    </div>
+  </div>
 
   <script>
     const SUPABASE_URL = "https://wziqqebullgyzdmivqmq.supabase.co";
@@ -44,54 +491,160 @@
     const token = params.get("token");
 
     const badge = document.getElementById("badge");
-    const details = document.getElementById("details");
+    const updatedAtEl = document.getElementById("updatedAt");
+    const locationLabelEl = document.getElementById("locationLabel");
+    const coordinatesEl = document.getElementById("coordinates");
+    const accuracyEl = document.getElementById("accuracy");
+    const speedEl = document.getElementById("speed");
+    const sessionInfoEl = document.getElementById("sessionInfo");
+    const openMapsBtn = document.getElementById("openMapsBtn");
+    const recenterBtn = document.getElementById("recenterBtn");
+    const mapStatusEl = document.getElementById("mapStatus");
+    const messageBox = document.getElementById("messageBox");
 
-    const map = L.map("map").setView([-3.7319, -38.5267], 13);
+    const map = L.map("map", {
+      zoomControl: true,
+      attributionControl: true
+    }).setView([-3.7319, -38.5267], 13);
+
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       maxZoom: 19,
       attribution: "&copy; OpenStreetMap"
     }).addTo(map);
 
     let marker = null;
+    let circle = null;
     let sessionId = null;
+    let lastLatLng = null;
+
+    function setBadge(active, text) {
+      badge.className = "badge " + (active ? "active" : "inactive");
+      badge.innerHTML = `
+        <span class="badge-dot"></span>
+        <span>${text}</span>
+      `;
+    }
+
+    function formatDate(value) {
+      if (!value) return "-";
+      try {
+        return new Date(value).toLocaleString("pt-BR");
+      } catch (_) {
+        return value;
+      }
+    }
+
+    function formatAccuracy(value) {
+      if (value === null || value === undefined || value === "") return "-";
+      const num = Number(value);
+      if (Number.isNaN(num)) return String(value);
+      return `${num.toFixed(1).replace(".", ",")} m`;
+    }
+
+    function formatSpeed(value) {
+      if (value === null || value === undefined || value === "") return "-";
+      const num = Number(value);
+      if (Number.isNaN(num)) return String(value);
+      const kmh = num * 3.6;
+      return `${kmh.toFixed(1).replace(".", ",")} km/h`;
+    }
+
+    function setMessage(text) {
+      messageBox.textContent = text || "";
+    }
 
     function render(data) {
       const active = data.active === true;
-      badge.textContent = active ? "SOS ATIVO" : "SOS ENCERRADO";
-      badge.className = "badge " + (active ? "active" : "inactive");
+      const hasCoords = data.lat != null && data.lng != null;
 
-      details.innerHTML = `
-        Última atualização: ${data.updated_at ? new Date(data.updated_at).toLocaleString("pt-BR") : "-"}<br>
-        Precisão: ${data.accuracy ?? "-"}<br>
-        Velocidade: ${data.speed ?? "-"}<br>
-        Local: ${data.location_label ?? "Indisponível"}
-      `;
+      setBadge(active, active ? "SOS ativo" : "SOS encerrado");
 
-      if (data.lat != null && data.lng != null) {
+      updatedAtEl.textContent = formatDate(data.updated_at);
+      locationLabelEl.textContent = data.location_label || "Localização indisponível";
+      coordinatesEl.textContent = hasCoords
+        ? `${Number(data.lat).toFixed(6)}, ${Number(data.lng).toFixed(6)}`
+        : "-";
+      accuracyEl.textContent = formatAccuracy(data.accuracy);
+      speedEl.textContent = formatSpeed(data.speed);
+      sessionInfoEl.textContent = data.session_id || "Não identificado";
+
+      mapStatusEl.textContent = active
+        ? "Recebendo atualizações em tempo real."
+        : "Esta sessão já foi encerrada.";
+
+      if (hasCoords) {
+        const latLng = [data.lat, data.lng];
+        lastLatLng = latLng;
+
+        openMapsBtn.href = `https://maps.google.com/?q=${data.lat},${data.lng}`;
+        openMapsBtn.style.pointerEvents = "auto";
+        openMapsBtn.style.opacity = "1";
+
         if (!marker) {
-          marker = L.marker([data.lat, data.lng]).addTo(map);
-          map.setView([data.lat, data.lng], 16);
+          marker = L.marker(latLng).addTo(map);
+          marker.bindPopup(`
+            <strong>Guied SOS</strong><br>
+            ${data.location_label || "Localização em tempo real"}
+          `);
         } else {
-          marker.setLatLng([data.lat, data.lng]);
-          map.panTo([data.lat, data.lng]);
+          marker.setLatLng(latLng);
+          marker.setPopupContent(`
+            <strong>Guied SOS</strong><br>
+            ${data.location_label || "Localização em tempo real"}
+          `);
         }
+
+        if (!circle) {
+          circle = L.circle(latLng, {
+            radius: Number(data.accuracy) || 15,
+            color: active ? "#ff4d6d" : "#94a3b8",
+            fillColor: active ? "#ff4d6d" : "#94a3b8",
+            fillOpacity: 0.15,
+            weight: 1.5
+          }).addTo(map);
+        } else {
+          circle.setLatLng(latLng);
+          circle.setRadius(Number(data.accuracy) || 15);
+          circle.setStyle({
+            color: active ? "#ff4d6d" : "#94a3b8",
+            fillColor: active ? "#ff4d6d" : "#94a3b8"
+          });
+        }
+
+        map.setView(latLng, 16);
+        setMessage(active ? "Localização atualizada com sucesso." : "Última posição registrada.");
+      } else {
+        openMapsBtn.href = "#";
+        openMapsBtn.style.pointerEvents = "none";
+        openMapsBtn.style.opacity = "0.55";
+        setMessage("Sessão encontrada, mas ainda sem coordenadas disponíveis.");
       }
     }
 
     async function loadSession() {
       if (!token) {
-        badge.textContent = "Token inválido";
-        details.textContent = "Link sem token.";
+        setBadge(false, "Token inválido");
+        mapStatusEl.textContent = "Link inválido.";
+        setMessage("Esse link não contém um token de rastreamento.");
+        locationLabelEl.textContent = "Link sem token";
+        sessionInfoEl.textContent = "Não localizado";
         return;
       }
+
+      setMessage("Buscando sessão...");
+      openMapsBtn.style.pointerEvents = "none";
+      openMapsBtn.style.opacity = "0.55";
 
       const { data, error } = await supabaseClient.rpc("get_sos_session_by_token", {
         p_token: token
       });
 
       if (error || !data || !data.length) {
-        badge.textContent = "Sessão não encontrada";
-        details.textContent = error?.message || "Nenhuma sessão encontrada.";
+        setBadge(false, "Sessão não encontrada");
+        mapStatusEl.textContent = "Nenhuma sessão foi localizada.";
+        setMessage(error?.message || "Nenhuma sessão encontrada para esse token.");
+        locationLabelEl.textContent = "Sessão indisponível";
+        sessionInfoEl.textContent = "Não encontrada";
         return;
       }
 
@@ -110,11 +663,23 @@
             filter: `session_id=eq.${sessionId}`
           },
           (payload) => {
-            render(payload.new);
+            if (payload?.new) {
+              render(payload.new);
+            }
           }
         )
-        .subscribe();
+        .subscribe((status) => {
+          if (status === "SUBSCRIBED") {
+            setMessage("Conectado ao rastreamento em tempo real.");
+          }
+        });
     }
+
+    recenterBtn.addEventListener("click", () => {
+      if (lastLatLng) {
+        map.setView(lastLatLng, 16);
+      }
+    });
 
     loadSession();
   </script>
