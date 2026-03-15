@@ -428,7 +428,7 @@
 
   <script>
     const SUPABASE_URL = "https://wziqqebullgyzdmivqmq.supabase.co";
-    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind6aXFxZWJ1bGxneXpkbWl2cW1xIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM2MzAxNDksImV4cCI6MjA3OTIwNjE0OX0.jHTEjwUH7apwkKFwUjPNoegK2XI3V_aKnh1JQcxtx4o";
+    const SUPABASE_ANON_KEY = "SUA_CHAVE_AQUI";
 
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -460,6 +460,10 @@
     let sessionId = null;
     let lastLatLng = null;
     let currentShareUrl = "";
+    let realtimeChannel = null;
+    let pollingInterval = null;
+    let lastRenderedUpdatedAt = null;
+    let firstMapFitDone = false;
 
     function setBadge(active, text) {
       badge.className = "badge " + (active ? "active" : "inactive");
@@ -513,9 +517,18 @@
       }
     }
 
-    function render(data) {
+    function render(data, source = "realtime") {
+      if (!data) return;
+
       const active = data.active === true;
       const hasCoords = data.lat != null && data.lng != null;
+      const updatedAt = data.updated_at || null;
+
+      if (updatedAt && lastRenderedUpdatedAt && updatedAt === lastRenderedUpdatedAt && source !== "initial") {
+        return;
+      }
+
+      lastRenderedUpdatedAt = updatedAt;
 
       setBadge(active, active ? "SOS ativo" : "SOS encerrado");
 
@@ -530,7 +543,7 @@
         : "Esta sessão já foi encerrada.";
 
       if (hasCoords) {
-        const latLng = [data.lat, data.lng];
+        const latLng = [Number(data.lat), Number(data.lng)];
         lastLatLng = latLng;
         currentShareUrl = `https://maps.google.com/?q=${data.lat},${data.lng}`;
 
@@ -538,18 +551,18 @@
         openMapsBtn.style.pointerEvents = "auto";
         openMapsBtn.style.opacity = "1";
 
+        const popupHtml = `
+          <strong>Guied SOS</strong><br>
+          ${data.location_label || "Localização em tempo real"}<br>
+          <small>${formatDate(data.updated_at)}</small>
+        `;
+
         if (!marker) {
           marker = L.marker(latLng).addTo(map);
-          marker.bindPopup(`
-            <strong>Guied SOS</strong><br>
-            ${data.location_label || "Localização em tempo real"}
-          `);
+          marker.bindPopup(popupHtml);
         } else {
           marker.setLatLng(latLng);
-          marker.setPopupContent(`
-            <strong>Guied SOS</strong><br>
-            ${data.location_label || "Localização em tempo real"}
-          `);
+          marker.setPopupContent(popupHtml);
         }
 
         if (!circle) {
@@ -569,8 +582,18 @@
           });
         }
 
-        map.setView(latLng, 16);
-        setMessage(active ? "Localização atualizada com sucesso." : "Última posição registrada.");
+        if (!firstMapFitDone) {
+          map.setView(latLng, 16);
+          firstMapFitDone = true;
+        }
+
+        setMessage(
+          active
+            ? (source === "polling"
+                ? "Localização atualizada automaticamente."
+                : "Conectado ao rastreamento em tempo real.")
+            : "Última posição registrada."
+        );
       } else {
         currentShareUrl = "";
         openMapsBtn.href = "#";
@@ -578,6 +601,20 @@
         openMapsBtn.style.opacity = "0.55";
         setMessage("Sessão encontrada, mas ainda sem coordenadas disponíveis.");
       }
+    }
+
+    async function fetchSessionData() {
+      if (!token) return null;
+
+      const { data, error } = await supabaseClient.rpc("get_sos_session_by_token", {
+        p_token: token
+      });
+
+      if (error || !data || !data.length) {
+        return null;
+      }
+
+      return data[0];
     }
 
     async function loadSession() {
@@ -593,23 +630,32 @@
       openMapsBtn.style.pointerEvents = "none";
       openMapsBtn.style.opacity = "0.55";
 
-      const { data, error } = await supabaseClient.rpc("get_sos_session_by_token", {
-        p_token: token
-      });
+      const session = await fetchSessionData();
 
-      if (error || !data || !data.length) {
+      if (!session) {
         setBadge(false, "Sessão não encontrada");
         mapStatusEl.textContent = "Nenhuma sessão foi localizada.";
-        setMessage(error?.message || "Nenhuma sessão encontrada para esse token.");
+        setMessage("Nenhuma sessão encontrada para esse token.");
         locationLabelEl.textContent = "Sessão indisponível";
         return;
       }
 
-      const session = data[0];
       sessionId = session.session_id;
-      render(session);
+      render(session, "initial");
 
-      supabaseClient
+      startRealtime();
+      startPolling();
+    }
+
+    function startRealtime() {
+      if (!sessionId) return;
+
+      if (realtimeChannel) {
+        supabaseClient.removeChannel(realtimeChannel);
+        realtimeChannel = null;
+      }
+
+      realtimeChannel = supabaseClient
         .channel("sos-" + sessionId)
         .on(
           "postgres_changes",
@@ -621,7 +667,7 @@
           },
           (payload) => {
             if (payload?.new) {
-              render(payload.new);
+              render(payload.new, "realtime");
             }
           }
         )
@@ -629,16 +675,46 @@
           if (status === "SUBSCRIBED") {
             setMessage("Conectado ao rastreamento em tempo real.");
           }
+
+          if (status === "CHANNEL_ERROR" || status === "TIMED_OUT") {
+            setMessage("Realtime instável. Atualização automática mantida pelo modo de segurança.");
+          }
         });
+    }
+
+    function startPolling() {
+      if (pollingInterval) {
+        clearInterval(pollingInterval);
+      }
+
+      pollingInterval = setInterval(async () => {
+        try {
+          const session = await fetchSessionData();
+          if (session) {
+            render(session, "polling");
+          }
+        } catch (_) {}
+      }, 3000);
     }
 
     recenterBtn.addEventListener("click", () => {
       if (lastLatLng) {
         map.setView(lastLatLng, 16);
+        setMessage("Mapa centralizado na última posição.");
       }
     });
 
     shareBtn.addEventListener("click", shareLocation);
+
+    window.addEventListener("beforeunload", () => {
+      if (pollingInterval) {
+        clearInterval(pollingInterval);
+      }
+
+      if (realtimeChannel) {
+        supabaseClient.removeChannel(realtimeChannel);
+      }
+    });
 
     loadSession();
   </script>
