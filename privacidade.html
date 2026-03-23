@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Política de Privacidade | Guied</title>
+  <meta
+    name="description"
+    content="Política de Privacidade do Guied. Saiba como tratamos dados, localização, permissões, SOS e segurança no aplicativo."
+  />
+  <style>
+    :root {
+      --bg: #060b14;
+      --bg-soft: #0c1422;
+      --card: rgba(255, 255, 255, 0.05);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text: #f5f7fb;
+      --muted: rgba(245, 247, 251, 0.72);
+      --primary: #18a0fb;
+      --primary-soft: rgba(24, 160, 251, 0.14);
+      --success: #22c55e;
+      --max: 980px;
+      --radius: 24px;
+      --shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      background:
+        radial-gradient(circle at top, rgba(24, 160, 251, 0.12), transparent 28%),
+        linear-gradient(180deg, #08111d 0%, var(--bg) 100%);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      width: min(100% - 32px, var(--max));
+      margin: 0 auto;
+    }
+
+    .hero {
+      padding: 72px 0 34px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: var(--primary-soft);
+      border: 1px solid rgba(24, 160, 251, 0.2);
+      color: #8fd3ff;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    h1 {
+      margin: 18px 0 14px;
+      font-size: clamp(32px, 5vw, 54px);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+    }
+
+    .subtitle {
+      max-width: 760px;
+      font-size: 17px;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 26px;
+    }
+
+    .meta-item {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 12px 14px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .notice {
+      margin-top: 28px;
+      background: linear-gradient(180deg, rgba(24, 160, 251, 0.12), rgba(24, 160, 251, 0.05));
+      border: 1px solid rgba(24, 160, 251, 0.2);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .notice strong {
+      color: #ffffff;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 24px;
+      padding: 18px 0 60px;
+    }
+
+    .toc {
+      position: sticky;
+      top: 22px;
+      align-self: start;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 18px;
+      backdrop-filter: blur(12px);
+    }
+
+    .toc h2 {
+      font-size: 15px;
+      margin: 0 0 12px;
+      color: #fff;
+    }
+
+    .toc a {
+      display: block;
+      padding: 9px 10px;
+      border-radius: 12px;
+      color: var(--muted);
+      font-size: 14px;
+      transition: 0.2s ease;
+    }
+
+    .toc a:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.05);
+      text-decoration: none;
+    }
+
+    .content {
+      display: grid;
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 26px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .card h2 {
+      margin: 0 0 14px;
+      font-size: 24px;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+
+    .card h3 {
+      margin: 22px 0 8px;
+      font-size: 17px;
+      line-height: 1.35;
+    }
+
+    .card p {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: 15.5px;
+    }
+
+    .card ul {
+      margin: 0;
+      padding-left: 20px;
+      color: var(--muted);
+    }
+
+    .card li + li {
+      margin-top: 8px;
+    }
+
+    .highlight {
+      border-left: 4px solid var(--primary);
+      background: rgba(24, 160, 251, 0.08);
+      padding: 16px 18px;
+      border-radius: 16px;
+      margin-top: 14px;
+    }
+
+    .highlight p:last-child {
+      margin-bottom: 0;
+    }
+
+    .contact-box {
+      display: grid;
+      gap: 10px;
+      background: rgba(34, 197, 94, 0.08);
+      border: 1px solid rgba(34, 197, 94, 0.18);
+      border-radius: 20px;
+      padding: 18px;
+    }
+
+    .contact-box strong {
+      color: #fff;
+    }
+
+    footer {
+      padding: 0 0 50px;
+    }
+
+    .footer-card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 22px;
+      padding: 18px 20px;
+      color: var(--muted);
+      font-size: 14px;
+      text-align: center;
+    }
+
+    @media (max-width: 980px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .toc {
+        position: static;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero {
+        padding-top: 42px;
+      }
+
+      .card,
+      .toc,
+      .notice {
+        padding: 18px;
+        border-radius: 20px;
+      }
+
+      .subtitle {
+        font-size: 15px;
+      }
+
+      .card h2 {
+        font-size: 21px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="container">
+      <span class="badge">Privacidade e proteção de dados</span>
+      <h1>Política de Privacidade do Guied</h1>
+      <p class="subtitle">
+        Esta Política de Privacidade explica como o aplicativo Guied acessa, coleta,
+        usa, armazena e, quando necessário, compartilha dados dos usuários para
+        oferecer seus recursos de operação, segurança e suporte.
+      </p>
+
+      <div class="meta">
+        <div class="meta-item"><strong>Última atualização:</strong> 23 de março de 2026</div>
+        <div class="meta-item"><strong>Aplicativo:</strong> Guied</div>
+        <div class="meta-item"><strong>Website:</strong> guied.com.br</div>
+      </div>
+
+      <div class="notice">
+        <strong>Importante:</strong> o Guied pode acessar dados de
+        <strong>localização</strong> para recursos de segurança, inclusive no
+        <strong>SOS com compartilhamento em tempo real</strong>. Quando autorizado pelo
+        usuário, esse acesso pode continuar <strong>mesmo com o app fechado ou não em uso</strong>,
+        para manter o rastreamento contínuo em situações de emergência.
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="layout">
+      <aside class="toc">
+        <h2>Nesta página</h2>
+        <a href="#quem-somos">1. Quem somos</a>
+        <a href="#dados-coletados">2. Quais dados podemos acessar ou coletar</a>
+        <a href="#uso-dados">3. Como usamos os dados</a>
+        <a href="#localizacao">4. Uso de localização</a>
+        <a href="#compartilhamento">5. Compartilhamento de dados</a>
+        <a href="#armazenamento">6. Armazenamento e retenção</a>
+        <a href="#permissoes">7. Permissões do dispositivo</a>
+        <a href="#seguranca">8. Segurança</a>
+        <a href="#direitos">9. Direitos do usuário</a>
+        <a href="#criancas">10. Crianças e adolescentes</a>
+        <a href="#alteracoes">11. Alterações nesta política</a>
+        <a href="#contato">12. Contato</a>
+      </aside>
+
+      <section class="content">
+        <article class="card" id="quem-somos">
+          <h2>1. Quem somos</h2>
+          <p>
+            O Guied é um aplicativo voltado para motoristas e entregadores, com
+            recursos de apoio operacional, leitura local de corridas, interface flutuante
+            e funcionalidades de segurança, incluindo SOS com compartilhamento de
+            localização em tempo real.
+          </p>
+          <div class="contact-box">
+            <div><strong>Responsável:</strong> Guilherme Jemmes</div>
+            <div><strong>E-mail:</strong> suporte@guied.com.br</div>
+            <div><strong>Website:</strong> <a href="https://guied.com.br">https://guied.com.br</a></div>
+          </div>
+        </article>
+
+        <article class="card" id="dados-coletados">
+          <h2>2. Quais dados podemos acessar ou coletar</h2>
+
+          <h3>a) Dados de localização</h3>
+          <p>
+            O Guied pode acessar a localização aproximada e/ou precisa do dispositivo.
+            Em determinadas funções, como o recurso de <strong>SOS com rastreamento contínuo</strong>,
+            a localização pode ser acessada também <strong>em segundo plano</strong>,
+            inclusive <strong>quando o app estiver fechado ou não estiver em uso</strong>,
+            desde que o usuário tenha concedido essa permissão.
+          </p>
+
+          <h3>b) Dados relacionados ao uso de recursos do app</h3>
+          <p>
+            O app pode processar informações necessárias para exibir recursos como HUD,
+            leitura de corridas, interface flutuante, análises operacionais e demais
+            funcionalidades internas do aplicativo.
+          </p>
+
+          <h3>c) Dados fornecidos pelo usuário</h3>
+          <p>
+            O usuário pode fornecer dados como nome, telefone de contato de emergência,
+            PIN de segurança, configurações operacionais e preferências de uso.
+          </p>
+
+          <h3>d) Dados técnicos e de diagnóstico</h3>
+          <p>
+            Podemos tratar dados técnicos do dispositivo e registros de funcionamento para
+            segurança, estabilidade, prevenção de falhas, suporte e melhoria contínua do app.
+          </p>
+        </article>
+
+        <article class="card" id="uso-dados">
+          <h2>3. Como usamos os dados</h2>
+          <p>Os dados acessados ou coletados podem ser usados para:</p>
+          <ul>
+            <li>permitir o funcionamento dos recursos principais do app;</li>
+            <li>exibir informações e análises relacionadas ao uso do aplicativo;</li>
+            <li>ativar o recurso de SOS com compartilhamento de localização em tempo real;</li>
+            <li>manter o rastreamento durante uma emergência, inclusive em segundo plano, quando autorizado;</li>
+            <li>armazenar preferências, configurações e dados necessários ao funcionamento do app;</li>
+            <li>melhorar desempenho, segurança, estabilidade e experiência do usuário.</li>
+          </ul>
+        </article>
+
+        <article class="card" id="localizacao">
+          <h2>4. Uso de localização</h2>
+          <p>
+            O Guied pode acessar dados de <strong>localização</strong> para recursos de
+            segurança e para funcionalidades do próprio aplicativo.
+          </p>
+          <p>A localização é usada principalmente para:</p>
+          <ul>
+            <li>recursos de segurança do usuário;</li>
+            <li>compartilhamento de localização em tempo real durante situações de SOS;</li>
+            <li>funcionalidades do app que dependem da posição do dispositivo.</li>
+          </ul>
+
+          <div class="highlight">
+            <p>
+              Quando o usuário habilita recursos que exigem rastreamento contínuo, o Guied
+              pode acessar a localização <strong>mesmo quando o app estiver fechado ou não estiver em uso</strong>,
+              desde que a permissão adequada tenha sido concedida no dispositivo.
+            </p>
+            <p>
+              Sem essa permissão, alguns recursos, especialmente o <strong>SOS com rastreamento contínuo</strong>,
+              podem não funcionar corretamente.
+            </p>
+          </div>
+        </article>
+
+        <article class="card" id="compartilhamento">
+          <h2>5. Compartilhamento de dados</h2>
+          <p>
+            O Guied <strong>não vende dados pessoais</strong> dos usuários.
+          </p>
+          <p>
+            Os dados podem ser compartilhados apenas quando necessário para o funcionamento
+            do serviço, por exemplo:
+          </p>
+          <ul>
+            <li>com serviços de infraestrutura e backend usados pelo aplicativo;</li>
+            <li>com contatos de emergência, quando o usuário ativar recursos de SOS ou compartilhamento de localização;</li>
+            <li>quando exigido por obrigação legal, ordem judicial ou solicitação válida de autoridade competente.</li>
+          </ul>
+          <p>
+            Se o recurso de SOS estiver ativo, informações de localização podem ser
+            transmitidas para viabilizar o acompanhamento da ocorrência e o compartilhamento
+            com os contatos definidos pelo usuário.
+          </p>
+        </article>
+
+        <article class="card" id="armazenamento">
+          <h2>6. Armazenamento e retenção</h2>
+          <p>
+            Os dados podem ser armazenados pelo período necessário para:
+          </p>
+          <ul>
+            <li>fornecer as funcionalidades do app;</li>
+            <li>cumprir obrigações legais;</li>
+            <li>resolver disputas;</li>
+            <li>garantir segurança e prevenção de fraudes;</li>
+            <li>manter registros técnicos e operacionais necessários ao funcionamento do serviço.</li>
+          </ul>
+          <p>
+            Quando possível e aplicável, os dados deixam de ser mantidos quando não forem mais
+            necessários para essas finalidades.
+          </p>
+        </article>
+
+        <article class="card" id="permissoes">
+          <h2>7. Permissões do dispositivo</h2>
+          <p>O Guied pode solicitar permissões do dispositivo, como:</p>
+          <ul>
+            <li>localização aproximada e precisa;</li>
+            <li>localização em segundo plano;</li>
+            <li>acessibilidade;</li>
+            <li>sobreposição de tela;</li>
+            <li>captura de tela;</li>
+            <li>notificações.</li>
+          </ul>
+          <p>
+            Essas permissões são solicitadas para habilitar funções do próprio aplicativo.
+            Caso o usuário negue determinadas permissões, partes do app podem não funcionar
+            corretamente.
+          </p>
+        </article>
+
+        <article class="card" id="seguranca">
+          <h2>8. Segurança</h2>
+          <p>
+            Adotamos medidas razoáveis de segurança para proteger os dados tratados pelo
+            aplicativo contra acesso não autorizado, alteração indevida, divulgação ou destruição.
+          </p>
+          <p>
+            Ainda assim, nenhum método de transmissão ou armazenamento é totalmente infalível.
+          </p>
+        </article>
+
+        <article class="card" id="direitos">
+          <h2>9. Direitos do usuário</h2>
+          <p>O usuário pode, conforme aplicável:</p>
+          <ul>
+            <li>solicitar informações sobre seus dados;</li>
+            <li>pedir atualização ou correção de dados fornecidos;</li>
+            <li>solicitar exclusão de dados, quando cabível;</li>
+            <li>revogar permissões diretamente nas configurações do dispositivo.</li>
+          </ul>
+          <p>
+            Para exercer esses direitos, basta entrar em contato pelo e-mail informado nesta política.
+          </p>
+        </article>
+
+        <article class="card" id="criancas">
+          <h2>10. Crianças e adolescentes</h2>
+          <p>
+            O Guied não é destinado a crianças sem supervisão adequada dos responsáveis.
+            Caso seja identificado tratamento inadequado de dados nessa hipótese, medidas
+            cabíveis poderão ser adotadas.
+          </p>
+        </article>
+
+        <article class="card" id="alteracoes">
+          <h2>11. Alterações nesta política</h2>
+          <p>
+            Esta Política de Privacidade pode ser atualizada periodicamente para refletir
+            mudanças no app, em requisitos legais ou em práticas de tratamento de dados.
+          </p>
+          <p>
+            A versão mais atual estará sempre disponível no endereço oficial informado pelo app
+            e pela página do Google Play.
+          </p>
+        </article>
+
+        <article class="card" id="contato">
+          <h2>12. Contato</h2>
+          <p>
+            Em caso de dúvidas sobre esta Política de Privacidade ou sobre o tratamento de dados,
+            entre em contato:
+          </p>
+
+          <div class="contact-box">
+            <div><strong>E-mail:</strong> guiedsuporte@gmail.com</div>
+            <div><strong>Responsável:</strong> Guilherme Jemmes</div>
+            <div><strong>Website:</strong> <a href="https://guied.com.br">https://guied.com.br</a></div>
+          </div>
+        </article>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-card">
+        © 2026 Guied. Todos os direitos reservados.
+      </div>
+    </div>
+  </footer>
+</body>
+</html>	
