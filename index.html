@@ -6,50 +6,44 @@
   <title>Guied — Inteligência para motoristas e entregadores</title>
   <meta
     name="description"
-    content="O app inteligente para motoristas e entregadores analisarem corridas, usarem o modo combo, consultarem avaliações colaborativas de locais, acompanharem relatórios e trabalharem com mais segurança."
+    content="O app inteligente para motoristas e entregadores analisarem corridas, usarem o modo combo, consultarem avaliações colaborativas de locais e trabalharem com mais segurança."
   />
 
   <style>
     :root {
-      --bg: #07111f;
-      --bg-soft: #0d1728;
-      --card: rgba(255, 255, 255, 0.06);
-      --card-strong: rgba(255, 255, 255, 0.1);
-      --text: #f5f7fb;
-      --text-soft: #b7c3d7;
+      --bg: #050505;
+      --bg-soft: #0c0c0c;
+      --bg-elev: #111111;
+      --card: rgba(255, 255, 255, 0.04);
+      --card-strong: rgba(255, 255, 255, 0.07);
+      --text: #f5f5f5;
+      --text-soft: #aaaaaa;
       --title: #ffffff;
-      --primary: #25d3b1;
-      --primary-strong: #16c79a;
-      --secondary: #4da6ff;
-      --border: rgba(255, 255, 255, 0.12);
-      --shadow: 0 20px 60px rgba(0, 0, 0, 0.28);
-      --section: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0));
-      --hero-glow-1: rgba(37, 211, 177, 0.24);
-      --hero-glow-2: rgba(77, 166, 255, 0.22);
-      --success: #2ad18b;
-      --warning: #f5b942;
+      --primary: #21d4a7;
+      --primary-strong: #13bf93;
+      --secondary: #ffffff;
+      --border: rgba(255, 255, 255, 0.08);
+      --shadow: 0 18px 50px rgba(0, 0, 0, 0.34);
+      --success: #28d17c;
       --danger: #ff6b6b;
     }
 
     body.light-mode {
-      --bg: #f5f8fc;
+      --bg: #f5f5f5;
       --bg-soft: #ffffff;
-      --card: rgba(8, 18, 36, 0.04);
-      --card-strong: rgba(8, 18, 36, 0.08);
-      --text: #182538;
-      --text-soft: #55657d;
-      --title: #091423;
-      --primary: #0cb991;
-      --primary-strong: #089f7d;
-      --secondary: #2c84ff;
-      --border: rgba(8, 18, 36, 0.1);
-      --shadow: 0 20px 60px rgba(18, 34, 59, 0.10);
-      --section: linear-gradient(180deg, rgba(8,18,36,0.025), rgba(8,18,36,0));
-      --hero-glow-1: rgba(12, 185, 145, 0.14);
-      --hero-glow-2: rgba(44, 132, 255, 0.12);
-      --success: #0ea868;
-      --warning: #d99816;
-      --danger: #e85050;
+      --bg-elev: #ffffff;
+      --card: rgba(0, 0, 0, 0.035);
+      --card-strong: rgba(0, 0, 0, 0.055);
+      --text: #1a1a1a;
+      --text-soft: #666666;
+      --title: #060606;
+      --primary: #0bb88e;
+      --primary-strong: #099d79;
+      --secondary: #111111;
+      --border: rgba(0, 0, 0, 0.08);
+      --shadow: 0 18px 50px rgba(0, 0, 0, 0.08);
+      --success: #169e5e;
+      --danger: #d95353;
     }
 
     * {
@@ -65,22 +59,22 @@
     body {
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background:
-        radial-gradient(circle at top left, var(--hero-glow-1), transparent 30%),
-        radial-gradient(circle at top right, var(--hero-glow-2), transparent 28%),
+        radial-gradient(circle at top left, rgba(33, 212, 167, 0.08), transparent 28%),
+        radial-gradient(circle at top right, rgba(255, 255, 255, 0.05), transparent 22%),
         var(--bg);
       color: var(--text);
+      line-height: 1.55;
       transition: background 0.25s ease, color 0.25s ease;
-      line-height: 1.6;
     }
 
     a {
-      text-decoration: none;
       color: inherit;
+      text-decoration: none;
     }
 
     img {
-      max-width: 100%;
       display: block;
+      max-width: 100%;
     }
 
     button {
@@ -91,41 +85,39 @@
     }
 
     .container {
-      width: min(1180px, calc(100% - 32px));
+      width: min(1160px, calc(100% - 28px));
       margin: 0 auto;
     }
 
     .site-header {
       position: sticky;
       top: 0;
-      z-index: 50;
+      z-index: 60;
       backdrop-filter: blur(16px);
-      background: rgba(7, 17, 31, 0.72);
+      background: rgba(5, 5, 5, 0.78);
       border-bottom: 1px solid var(--border);
     }
 
     body.light-mode .site-header {
-      background: rgba(245, 248, 252, 0.8);
+      background: rgba(245, 245, 245, 0.82);
     }
 
     .header-inner {
-      min-height: 82px;
+      min-height: 76px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 16px;
-    }
-
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      color: var(--title);
-      font-weight: 800;
-      font-size: 1.1rem;
+      position: relative;
     }
 
     .brand-button {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      flex-shrink: 0;
       transition: transform 0.18s ease;
     }
 
@@ -134,15 +126,9 @@
     }
 
     .brand-logo {
-      width: 42px;
-      height: 42px;
-      object-fit: contain;
-      border-radius: 12px;
-      box-shadow: var(--shadow);
-    }
-
-    .brand-text {
-      letter-spacing: -0.02em;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     .main-nav {
@@ -153,9 +139,9 @@
     }
 
     .main-nav a {
-      color: var(--text-soft);
+      font-size: 0.95rem;
       font-weight: 600;
-      font-size: 0.96rem;
+      color: var(--text-soft);
       transition: color 0.2s ease;
     }
 
@@ -169,75 +155,87 @@
       gap: 10px;
     }
 
-    .theme-toggle {
+    .theme-toggle,
+    .mobile-nav-toggle {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 46px;
-      height: 46px;
-      border-radius: 14px;
       background: var(--card);
       border: 1px solid var(--border);
       color: var(--title);
       transition: transform 0.18s ease, background 0.2s ease;
     }
 
-    .theme-toggle:hover {
+    .theme-toggle:hover,
+    .mobile-nav-toggle:hover {
       transform: translateY(-1px);
       background: var(--card-strong);
     }
 
+    .mobile-nav-toggle {
+      display: none;
+      font-size: 1.15rem;
+    }
+
     .header-cta {
+      min-height: 44px;
+      padding: 0 16px;
+      border-radius: 14px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 46px;
-      padding: 0 18px;
-      border-radius: 14px;
+      gap: 8px;
       font-weight: 800;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
       color: #fff;
-      box-shadow: var(--shadow);
-      transition: transform 0.2s ease, opacity 0.2s ease;
+      background: linear-gradient(135deg, #22d3a6 0%, #12b886 100%);
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow:
+        0 12px 28px rgba(18, 184, 134, 0.24),
+        inset 0 1px 0 rgba(255,255,255,0.16);
+      transition: transform 0.2s ease, box-shadow 0.25s ease;
       white-space: nowrap;
     }
 
     .header-cta:hover {
-      transform: translateY(-1px);
-      opacity: 0.96;
+      transform: translateY(-2px);
+      box-shadow:
+        0 18px 34px rgba(18, 184, 134, 0.3),
+        inset 0 1px 0 rgba(255,255,255,0.2);
     }
 
     .hero {
-      padding: 72px 0 36px;
+      padding: 60px 0 30px;
     }
 
     .hero-grid {
       display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 32px;
+      grid-template-columns: 1.12fr 0.88fr;
+      gap: 24px;
       align-items: center;
     }
 
     .eyebrow {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 8px 14px;
-      border: 1px solid var(--border);
-      background: var(--card);
+      padding: 8px 12px;
       border-radius: 999px;
-      font-size: 0.88rem;
-      font-weight: 700;
+      background: var(--card);
+      border: 1px solid var(--border);
       color: var(--primary);
-      margin-bottom: 18px;
+      font-size: 0.84rem;
+      font-weight: 800;
+      margin-bottom: 16px;
     }
 
     .hero h1 {
-      font-size: clamp(2.2rem, 4vw, 4.4rem);
-      line-height: 1.02;
-      letter-spacing: -0.04em;
+      font-size: clamp(2.2rem, 4vw, 4.1rem);
+      line-height: 0.98;
+      letter-spacing: -0.045em;
       color: var(--title);
-      max-width: 760px;
+      max-width: 720px;
     }
 
     .hero h1 span {
@@ -245,336 +243,397 @@
     }
 
     .hero-description {
-      margin-top: 18px;
-      max-width: 690px;
-      font-size: 1.08rem;
+      margin-top: 16px;
       color: var(--text-soft);
+      font-size: 1rem;
+      max-width: 650px;
     }
 
     .hero-highlights {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      margin-top: 28px;
+      margin-top: 22px;
     }
 
     .hero-highlights span {
-      padding: 10px 14px;
+      padding: 9px 12px;
       border-radius: 999px;
       background: var(--card);
       border: 1px solid var(--border);
       color: var(--text);
+      font-size: 0.88rem;
       font-weight: 700;
-      font-size: 0.92rem;
     }
 
     .hero-actions {
       display: flex;
       flex-wrap: wrap;
-      gap: 14px;
-      margin-top: 30px;
+      gap: 12px;
+      margin-top: 24px;
     }
 
     .btn {
-      min-height: 54px;
-      padding: 0 22px;
+      position: relative;
+      min-height: 52px;
+      padding: 0 20px;
       border-radius: 16px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      gap: 10px;
       font-weight: 800;
-      transition: transform 0.2s ease, opacity 0.2s ease, background 0.2s ease;
-    }
-
-    .btn:hover {
-      transform: translateY(-1px);
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      color: #fff;
-      box-shadow: var(--shadow);
-    }
-
-    .btn-secondary {
-      background: var(--card);
-      border: 1px solid var(--border);
-      color: var(--title);
-    }
-
-    .btn-whatsapp {
-      background: #25d366;
-      color: #fff;
-      box-shadow: var(--shadow);
-    }
-
-    .hero-summary-card {
-      background: linear-gradient(180deg, var(--card-strong), var(--card));
-      border: 1px solid var(--border);
-      border-radius: 28px;
-      padding: 26px;
-      box-shadow: var(--shadow);
-      position: relative;
+      font-size: 0.96rem;
+      letter-spacing: -0.01em;
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease,
+        border-color 0.25s ease,
+        opacity 0.25s ease;
       overflow: hidden;
+      isolation: isolate;
     }
 
-    .hero-summary-card::before {
+    .btn::before {
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(255,255,255,0.05), transparent);
+      background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.16),
+        rgba(255, 255, 255, 0.03)
+      );
+      opacity: 0.9;
       pointer-events: none;
+      z-index: 0;
     }
 
-    .summary-head {
-      margin-bottom: 16px;
+    .btn > * {
+      position: relative;
+      z-index: 1;
     }
 
-    .summary-head small {
-      display: block;
-      color: var(--primary);
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      font-size: 0.75rem;
-      margin-bottom: 6px;
+    .btn:hover {
+      transform: translateY(-2px);
     }
 
-    .summary-head h3 {
-      font-size: 1.4rem;
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    .btn-primary {
+      color: #ffffff;
+      background: linear-gradient(135deg, #22d3a6 0%, #12b886 100%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow:
+        0 12px 28px rgba(18, 184, 134, 0.28),
+        inset 0 1px 0 rgba(255, 255, 255, 0.18);
+    }
+
+    .btn-primary:hover {
+      box-shadow:
+        0 18px 34px rgba(18, 184, 134, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.22);
+    }
+
+    .btn-secondary {
       color: var(--title);
-      line-height: 1.15;
+      background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.025));
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow:
+        0 10px 24px rgba(0, 0, 0, 0.18),
+        inset 0 1px 0 rgba(255,255,255,0.05);
+      backdrop-filter: blur(8px);
     }
 
-    .summary-item {
-      padding: 18px;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid var(--border);
+    .btn-secondary:hover {
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
+      border-color: rgba(255, 255, 255, 0.16);
+      box-shadow:
+        0 14px 28px rgba(0, 0, 0, 0.24),
+        inset 0 1px 0 rgba(255,255,255,0.08);
     }
 
-    body.light-mode .summary-item {
-      background: rgba(8,18,36,0.03);
+    .btn-whatsapp {
+      color: #ffffff;
+      background: linear-gradient(135deg, #2adf71 0%, #18b958 100%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow:
+        0 12px 28px rgba(37, 211, 102, 0.24),
+        inset 0 1px 0 rgba(255,255,255,0.18);
     }
 
-    .summary-list {
-      display: grid;
-      gap: 14px;
-      margin-top: 18px;
+    .btn-whatsapp:hover {
+      box-shadow:
+        0 18px 34px rgba(37, 211, 102, 0.32),
+        inset 0 1px 0 rgba(255,255,255,0.22);
     }
 
-    .summary-item strong {
-      display: block;
-      color: var(--title);
+    body.light-mode .btn-secondary {
+      background: linear-gradient(180deg, rgba(0,0,0,0.03), rgba(0,0,0,0.015));
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      box-shadow:
+        0 10px 22px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255,255,255,0.45);
+    }
+
+    body.light-mode .btn-secondary:hover {
+      background: linear-gradient(180deg, rgba(0,0,0,0.05), rgba(0,0,0,0.02));
+      border-color: rgba(0, 0, 0, 0.12);
+    }
+
+    .btn-icon {
       font-size: 1rem;
-      margin-bottom: 6px;
-    }
-
-    .summary-item span {
-      color: var(--text-soft);
-      font-size: 0.96rem;
-    }
-
-    .section {
-      padding: 84px 0;
-      background: var(--section);
-    }
-
-    .section-soft {
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015));
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-
-    body.light-mode .section-soft {
-      background:
-        linear-gradient(180deg, rgba(8,18,36,0.02), rgba(8,18,36,0.015));
-    }
-
-    .section-head {
-      max-width: 760px;
-      margin-bottom: 34px;
-    }
-
-    .section-head.center-sm {
-      text-align: center;
-      margin-inline: auto;
-      margin-bottom: 28px;
-    }
-
-    .section-head h2 {
-      font-size: clamp(1.8rem, 3vw, 3rem);
-      line-height: 1.08;
-      letter-spacing: -0.03em;
-      color: var(--title);
-      margin-top: 10px;
-    }
-
-    .section-head p {
-      margin-top: 12px;
-      color: var(--text-soft);
-      font-size: 1.02rem;
-    }
-
-    .compatibility-box {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 18px;
-      flex-wrap: wrap;
-      padding: 24px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      box-shadow: var(--shadow);
-    }
-
-    .compat-logo {
-      width: 110px;
-      height: 50px;
-      object-fit: contain;
-      padding: 10px 16px;
-      border-radius: 16px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid var(--border);
-    }
-
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
-    }
-
-    .feature-card,
-    .report-card,
-    .plan-card,
-    .compare-card,
-    .special-card,
-    .testimonial-card,
-    .contact-card,
-    .detail-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      box-shadow: var(--shadow);
-    }
-
-    .feature-card,
-    .report-card,
-    .detail-card {
-      padding: 24px;
-    }
-
-    .feature-icon {
-      width: 46px;
-      height: 46px;
-      border-radius: 14px;
+      line-height: 1;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(135deg, rgba(37,211,177,0.2), rgba(77,166,255,0.22));
+    }
+
+    .hero-panel {
+      background: linear-gradient(180deg, var(--card-strong), var(--card));
       border: 1px solid var(--border);
-      margin-bottom: 16px;
-      font-size: 1.3rem;
+      border-radius: 24px;
+      padding: 22px;
+      box-shadow: var(--shadow);
     }
 
-    .feature-card h3,
-    .report-card h3,
-    .detail-card h3 {
+    .hero-panel h3 {
+      font-size: 1.25rem;
+      line-height: 1.15;
       color: var(--title);
-      font-size: 1.08rem;
-      margin-bottom: 10px;
+      margin-bottom: 16px;
     }
 
-    .feature-card p,
-    .report-card p,
-    .detail-card p {
+    .panel-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .panel-item {
+      padding: 15px 16px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+    }
+
+    body.light-mode .panel-item {
+      background: rgba(0,0,0,0.02);
+    }
+
+    .panel-item strong {
+      display: block;
+      color: var(--title);
+      font-size: 0.98rem;
+      margin-bottom: 4px;
+    }
+
+    .panel-item span {
+      color: var(--text-soft);
+      font-size: 0.92rem;
+    }
+
+    .section {
+      padding: 68px 0;
+    }
+
+    .section-soft {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0));
+    }
+
+    body.light-mode .section-soft {
+      background: linear-gradient(180deg, rgba(0,0,0,0.02), rgba(0,0,0,0));
+    }
+
+    .section-head {
+      max-width: 720px;
+      margin-bottom: 28px;
+    }
+
+    .section-head.center {
+      text-align: center;
+      margin-inline: auto;
+    }
+
+    .section-head h2 {
+      margin-top: 10px;
+      font-size: clamp(1.7rem, 3vw, 2.8rem);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      color: var(--title);
+    }
+
+    .section-head p {
+      margin-top: 10px;
       color: var(--text-soft);
       font-size: 0.98rem;
     }
 
-    .details-grid {
+    .compatibility-strip {
+      display: flex;
+      justify-content: center;
+    }
+
+    .compatibility-inner {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      padding: 10px 12px;
+      border-radius: 18px;
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      flex-wrap: wrap;
+    }
+
+    .compat-logo {
+      width: 96px;
+      height: 46px;
+      object-fit: contain;
+      padding: 8px 12px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.025);
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+
+    body.light-mode .compat-logo {
+      background: rgba(0,0,0,0.02);
+      border-color: rgba(0,0,0,0.04);
+    }
+
+    .features-grid,
+    .details-grid,
+    .report-grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .features-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .details-grid,
+    .special-grid,
+    .before-after-grid,
+    .contact-grid,
+    .plans-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 18px;
-      margin-top: 24px;
+      gap: 16px;
     }
 
-    .special-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 20px;
+    .report-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 
-    .special-card {
-      padding: 28px;
-      position: relative;
-      overflow: hidden;
+    .feature-card,
+    .detail-card,
+    .special-card,
+    .report-card,
+    .compare-card,
+    .plan-card,
+    .contact-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
     }
 
-    .special-card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      opacity: 0.9;
-      pointer-events: none;
+    .feature-card,
+    .detail-card,
+    .report-card,
+    .compare-card,
+    .special-card,
+    .plan-card,
+    .contact-card {
+      padding: 22px;
     }
 
-    .special-card-combo::before {
-      background: radial-gradient(circle at top right, rgba(77,166,255,0.18), transparent 36%);
+    .feature-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 13px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(33, 212, 167, 0.12);
+      border: 1px solid var(--border);
+      margin-bottom: 14px;
+      font-size: 1.2rem;
     }
 
-    .special-card-rating::before {
-      background: radial-gradient(circle at top right, rgba(37,211,177,0.18), transparent 36%);
+    .feature-card h3,
+    .detail-card h3,
+    .report-card h3,
+    .special-card h3,
+    .compare-card h3,
+    .plan-card h3,
+    .contact-card h3 {
+      color: var(--title);
+      font-size: 1.06rem;
+      margin-bottom: 10px;
+      letter-spacing: -0.02em;
+    }
+
+    .feature-card p,
+    .detail-card p,
+    .report-card p,
+    .special-card p,
+    .contact-card p,
+    .plan-text {
+      color: var(--text-soft);
+      font-size: 0.95rem;
     }
 
     .special-top {
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
       gap: 10px;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
-    .special-badge {
+    .special-badge,
+    .plan-label,
+    .compare-label {
       display: inline-flex;
-      padding: 8px 12px;
+      padding: 7px 11px;
       border-radius: 999px;
-      font-size: 0.76rem;
-      font-weight: 800;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.05);
+      font-size: 0.72rem;
+      font-weight: 900;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid var(--border);
       color: var(--primary);
     }
 
-    .special-card h3 {
-      font-size: 1.5rem;
-      color: var(--title);
-      letter-spacing: -0.02em;
-    }
-
-    .special-card p {
-      color: var(--text-soft);
-      margin-bottom: 18px;
-    }
-
-    .special-list {
+    .special-list,
+    .contact-list,
+    .plan-card ul {
       display: grid;
-      gap: 10px;
+      gap: 9px;
+      margin-top: 14px;
     }
 
-    .special-list li {
+    .special-list li,
+    .contact-list li,
+    .plan-card li {
       list-style: none;
       color: var(--text);
       font-weight: 600;
+      font-size: 0.94rem;
       position: relative;
-      padding-left: 22px;
+      padding-left: 20px;
     }
 
-    .special-list li::before {
+    .special-list li::before,
+    .contact-list li::before,
+    .plan-card li::before {
       content: "•";
       position: absolute;
       left: 0;
@@ -582,85 +641,53 @@
       font-weight: 900;
     }
 
-    .report-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 18px;
-    }
-
     .report-card strong {
       display: block;
-      margin-top: 12px;
+      margin-top: 10px;
       color: var(--primary);
-      font-size: 1.3rem;
-    }
-
-    .before-after-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 22px;
-    }
-
-    .compare-card {
-      padding: 28px;
-    }
-
-    .compare-label {
-      display: inline-flex;
-      margin-bottom: 12px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      font-size: 0.78rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      border: 1px solid var(--border);
+      font-size: 1.08rem;
     }
 
     .compare-before .compare-label {
-      background: rgba(255, 107, 107, 0.12);
       color: var(--danger);
+      background: rgba(255, 107, 107, 0.08);
     }
 
     .compare-after .compare-label {
-      background: rgba(42, 209, 139, 0.12);
       color: var(--success);
-    }
-
-    .compare-card h3 {
-      color: var(--title);
-      margin-bottom: 20px;
-      font-size: 1.4rem;
+      background: rgba(40, 209, 124, 0.08);
     }
 
     .mini-chart {
       display: grid;
-      gap: 16px;
+      gap: 14px;
+      margin-top: 12px;
     }
 
     .bar-wrap span {
       display: block;
-      font-weight: 700;
       color: var(--text);
-      margin-bottom: 8px;
+      font-weight: 700;
+      margin-bottom: 7px;
+      font-size: 0.93rem;
     }
 
     .bar {
-      height: 12px;
+      height: 11px;
       border-radius: 999px;
-      background: rgba(255,255,255,0.08);
-      overflow: hidden;
+      background: rgba(255,255,255,0.06);
       border: 1px solid var(--border);
+      overflow: hidden;
     }
 
     body.light-mode .bar {
-      background: rgba(8,18,36,0.06);
+      background: rgba(0,0,0,0.05);
     }
 
     .bar-fill {
       height: 100%;
       border-radius: inherit;
-      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      background: linear-gradient(90deg, var(--primary), #18b98f);
     }
 
     .fill-25 { width: 25%; }
@@ -672,223 +699,76 @@
 
     .bar-wrap strong {
       display: block;
-      margin-top: 8px;
+      margin-top: 6px;
+      font-size: 0.88rem;
       color: var(--title);
-      font-size: 0.94rem;
     }
 
     .value-cards {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
-      margin-top: 20px;
+      gap: 10px;
+      margin-top: 16px;
     }
 
     .value-card {
-      padding: 16px;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.05);
+      padding: 14px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.03);
       border: 1px solid var(--border);
+    }
+
+    body.light-mode .value-card {
+      background: rgba(0,0,0,0.02);
     }
 
     .value-card span {
       display: block;
+      font-size: 0.84rem;
       color: var(--text-soft);
-      margin-bottom: 6px;
-      font-size: 0.9rem;
+      margin-bottom: 5px;
     }
 
     .value-card strong {
       color: var(--title);
-      font-size: 1.15rem;
-    }
-
-    .testimonial-slider {
-      overflow: hidden;
-      mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
-      -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
-    }
-
-    .testimonial-track {
-      display: flex;
-      gap: 18px;
-      width: max-content;
-      animation: slideTestimonials 38s linear infinite;
-    }
-
-    .testimonial-slider:hover .testimonial-track {
-      animation-play-state: paused;
-    }
-
-    @keyframes slideTestimonials {
-      from { transform: translateX(0); }
-      to { transform: translateX(-50%); }
-    }
-
-    .testimonial-card {
-      width: 320px;
-      padding: 22px;
-      flex: 0 0 auto;
-    }
-
-    .stars {
-      color: #ffcc4d;
-      font-size: 1.1rem;
-      margin-bottom: 10px;
-    }
-
-    .testimonial-card p {
-      color: var(--text);
-      font-size: 0.98rem;
-      margin-bottom: 14px;
-    }
-
-    .testimonial-card strong {
-      display: block;
-      color: var(--title);
-    }
-
-    .testimonial-card span {
-      color: var(--text-soft);
-      font-size: 0.92rem;
+      font-size: 1.02rem;
     }
 
     .plans-grid {
-      display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 20px;
-    }
-
-    .plan-card {
-      padding: 28px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      position: relative;
-      overflow: hidden;
     }
 
     .plan-card.featured {
-      border-color: rgba(37, 211, 177, 0.4);
-      transform: translateY(-4px);
-      background:
-        linear-gradient(180deg, rgba(37,211,177,0.10), rgba(255,255,255,0.04));
-    }
-
-    .plan-label {
-      display: inline-flex;
-      align-self: flex-start;
-      padding: 8px 12px;
-      border-radius: 999px;
-      font-size: 0.75rem;
-      font-weight: 900;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid var(--border);
-      color: var(--primary);
-    }
-
-    .plan-card h3 {
-      font-size: 1.5rem;
-      color: var(--title);
+      border-color: rgba(33, 212, 167, 0.28);
+      background: linear-gradient(180deg, rgba(33, 212, 167, 0.09), rgba(255,255,255,0.03));
     }
 
     .plan-price {
       display: flex;
       align-items: baseline;
       gap: 6px;
+      margin-bottom: 4px;
     }
 
     .plan-price strong {
-      font-size: 2.1rem;
+      font-size: 1.95rem;
       color: var(--title);
-      letter-spacing: -0.03em;
+      letter-spacing: -0.04em;
     }
 
     .plan-price span {
+      font-size: 0.9rem;
       color: var(--text-soft);
-      font-size: 0.95rem;
-    }
-
-    .plan-text {
-      color: var(--text-soft);
-    }
-
-    .plan-card ul {
-      display: grid;
-      gap: 10px;
-      margin: 6px 0 8px;
-    }
-
-    .plan-card li {
-      list-style: none;
-      position: relative;
-      padding-left: 22px;
-      color: var(--text);
-      font-weight: 600;
-    }
-
-    .plan-card li::before {
-      content: "✓";
-      position: absolute;
-      left: 0;
-      color: var(--primary);
-      font-weight: 900;
     }
 
     .full {
       width: 100%;
-    }
-
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      align-items: stretch;
-    }
-
-    .contact-card {
-      padding: 28px;
-    }
-
-    .contact-card h3 {
-      color: var(--title);
-      font-size: 1.45rem;
-      margin-bottom: 12px;
-    }
-
-    .contact-card p {
-      color: var(--text-soft);
-      margin-bottom: 18px;
-    }
-
-    .contact-list {
-      display: grid;
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-
-    .contact-list li {
-      list-style: none;
-      padding-left: 22px;
-      position: relative;
-      color: var(--text);
-      font-weight: 600;
-    }
-
-    .contact-list li::before {
-      content: "•";
-      position: absolute;
-      left: 0;
-      color: var(--primary);
-      font-weight: 900;
+      margin-top: 4px;
     }
 
     .site-footer {
-      padding: 26px 0 40px;
+      padding: 24px 0 36px;
       border-top: 1px solid var(--border);
-      background: transparent;
     }
 
     .footer-inner {
@@ -902,35 +782,23 @@
     .footer-links {
       display: flex;
       align-items: center;
-      gap: 18px;
+      gap: 16px;
       flex-wrap: wrap;
     }
 
     .footer-links a {
       color: var(--text-soft);
       font-weight: 600;
+      font-size: 0.94rem;
     }
 
-    .mobile-nav-toggle {
-      display: none;
-      width: 46px;
-      height: 46px;
-      border-radius: 14px;
-      border: 1px solid var(--border);
-      background: var(--card);
-      color: var(--title);
-      align-items: center;
-      justify-content: center;
-      font-size: 1.2rem;
-    }
-
-    @media (max-width: 1080px) {
+    @media (max-width: 980px) {
       .hero-grid,
-      .before-after-grid,
+      .details-grid,
       .special-grid,
-      .plans-grid,
+      .before-after-grid,
       .contact-grid,
-      .details-grid {
+      .plans-grid {
         grid-template-columns: 1fr;
       }
 
@@ -941,26 +809,23 @@
       .report-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
-
-      .hero {
-        padding-top: 54px;
-      }
     }
 
-    @media (max-width: 860px) {
+    @media (max-width: 840px) {
       .main-nav {
         position: absolute;
         top: calc(100% + 10px);
-        left: 16px;
-        right: 16px;
-        padding: 18px;
-        border-radius: 20px;
+        left: 14px;
+        right: 14px;
+        padding: 16px;
         background: var(--bg-soft);
         border: 1px solid var(--border);
+        border-radius: 18px;
         box-shadow: var(--shadow);
         display: none;
         flex-direction: column;
         align-items: flex-start;
+        gap: 14px;
       }
 
       .main-nav.open {
@@ -976,36 +841,28 @@
       }
     }
 
-    @media (max-width: 680px) {
+    @media (max-width: 640px) {
       .features-grid,
       .report-grid,
       .value-cards {
         grid-template-columns: 1fr;
       }
 
-      .header-inner {
-        min-height: 74px;
-      }
-
-      .hero h1 {
-        font-size: 2.25rem;
-      }
-
-      .hero-description {
-        font-size: 1rem;
-      }
-
-      .btn,
-      .header-cta {
-        width: 100%;
+      .hero {
+        padding-top: 48px;
       }
 
       .hero-actions {
         flex-direction: column;
       }
 
-      .testimonial-card {
-        width: 280px;
+      .btn {
+        width: 100%;
+      }
+
+      .compat-logo {
+        width: 88px;
+        height: 42px;
       }
     }
   </style>
@@ -1013,9 +870,8 @@
 <body>
   <header class="site-header">
     <div class="container header-inner">
-      <button class="brand brand-button" onclick="scrollToTop()" aria-label="Voltar ao topo">
+      <button class="brand-button" onclick="scrollToTop()" aria-label="Voltar ao topo">
         <img src="logo.png" alt="Guied" class="brand-logo" />
-        <span class="brand-text">Guied</span>
       </button>
 
       <nav class="main-nav" id="mainNav">
@@ -1024,8 +880,6 @@
         <a href="#recursos">Recursos</a>
         <a href="#detalhes">Como funciona</a>
         <a href="#diferenciais">Diferenciais</a>
-        <a href="#diferenca">Antes e depois</a>
-        <a href="#avaliacoes">Avaliações</a>
         <a href="#planos">Planos</a>
         <a href="#contato">Contato</a>
       </nav>
@@ -1045,7 +899,8 @@
           target="_blank"
           rel="noopener noreferrer"
         >
-          Experimente Grátis
+          <span>⬇</span>
+          <span>Baixar app</span>
         </a>
       </div>
     </div>
@@ -1054,27 +909,25 @@
   <main>
     <section class="hero" id="inicio">
       <div class="container hero-grid">
-        <div class="hero-content">
+        <div>
           <span class="eyebrow">Para motoristas e entregadores</span>
 
           <h1>
-            Mais clareza para aceitar melhor,
+            Mais contexto para aceitar melhor,
             <span>lucrar mais</span>
-            e trabalhar com mais segurança.
+            e rodar com mais segurança.
           </h1>
 
           <p class="hero-description">
-            O Guied foi criado para ajudar motoristas e entregadores a tomarem decisões melhores no dia a dia. 
-            O app analisa corridas, mostra mais contexto antes da aceitação, ajuda no controle dos números, 
-            traz mais segurança na operação e adiciona funções exclusivas como o <strong>Modo Combo</strong> 
-            e a <strong>Avaliação Colaborativa do Local</strong>.
+            O Guied ajuda você a tomar decisões melhores no dia a dia com análise de corrida,
+            relatórios, meta, SOS, <strong>Modo Combo</strong> e <strong>Avaliação Colaborativa do Local</strong>.
           </p>
 
           <div class="hero-highlights">
             <span>HUD inteligente</span>
             <span>Modo combo</span>
-            <span>Avaliação colaborativa do local</span>
-            <span>Relatórios completos</span>
+            <span>Avaliação do local</span>
+            <span>Relatórios</span>
             <span>SOS em tempo real</span>
           </div>
 
@@ -1085,10 +938,14 @@
               target="_blank"
               rel="noopener noreferrer"
             >
-              Baixar na Play Store
+              <span class="btn-icon">⬇</span>
+              <span>Baixar na Play Store</span>
             </a>
 
-            <a href="#planos" class="btn btn-secondary">Ver planos</a>
+            <a href="#planos" class="btn btn-secondary">
+              <span class="btn-icon">★</span>
+              <span>Ver planos</span>
+            </a>
 
             <a
               href="https://wa.me/5585991098696?text=Ol%C3%A1%2C+quero+falar+com+o+suporte+do+Guied."
@@ -1096,36 +953,34 @@
               target="_blank"
               rel="noopener noreferrer"
             >
-              Entrar em contato
+              <span class="btn-icon">✆</span>
+              <span>Entrar em contato</span>
             </a>
           </div>
         </div>
 
-        <div class="hero-summary-card">
-          <div class="summary-head">
-            <small>Visão do app</small>
-            <h3>Mais do que analisar corridas: o Guied ajuda você a trabalhar melhor.</h3>
-          </div>
+        <div class="hero-panel">
+          <h3>Um app pensado para melhorar a operação inteira, não só uma corrida.</h3>
 
-          <div class="summary-list">
-            <div class="summary-item">
-              <strong>Detector inteligente</strong>
-              <span>Mais contexto visual para entender rapidamente se a corrida faz sentido para sua operação.</span>
-            </div>
-
-            <div class="summary-item">
+          <div class="panel-list">
+            <div class="panel-item">
               <strong>Modo Combo</strong>
-              <span>Analisa a sequência das corridas e mostra quando uma nova oferta pode favorecer ou atrapalhar seu turno.</span>
+              <span>Ajuda a enxergar o impacto da sequência de corridas no seu turno.</span>
             </div>
 
-            <div class="summary-item">
-              <strong>Avaliação do local</strong>
-              <span>Motoristas avaliam coleta e entrega, criando inteligência coletiva por endereço para toda a comunidade.</span>
+            <div class="panel-item">
+              <strong>Avaliação Colaborativa do Local</strong>
+              <span>Motoristas avaliam coleta e entrega, criando inteligência por endereço.</span>
             </div>
 
-            <div class="summary-item">
+            <div class="panel-item">
+              <strong>Relatórios e meta</strong>
+              <span>Mais visão de bruto, líquido, combustível e desempenho diário.</span>
+            </div>
+
+            <div class="panel-item">
               <strong>SOS em tempo real</strong>
-              <span>Seu contato acompanha sua localização por link, trazendo mais segurança durante a operação.</span>
+              <span>Mais segurança para quem roda com contato acompanhando a localização.</span>
             </div>
           </div>
         </div>
@@ -1134,18 +989,17 @@
 
     <section class="section" id="compatibilidade">
       <div class="container">
-        <div class="section-head center-sm">
+        <div class="section-head center">
           <span class="eyebrow">Compatível com sua rotina</span>
           <h2>Rodando com os apps que você já usa</h2>
-          <p>
-            O Guied foi pensado para se encaixar no dia a dia de motoristas e entregadores, sem complicar sua operação.
-          </p>
         </div>
 
-        <div class="compatibility-box">
-          <img src="ifood.png" alt="iFood" class="compat-logo" />
-          <img src="uber.png" alt="Uber" class="compat-logo" />
-          <img src="99.png" alt="99" class="compat-logo" />
+        <div class="compatibility-strip">
+          <div class="compatibility-inner">
+            <img src="ifood.png" alt="iFood" class="compat-logo" />
+            <img src="uber.png" alt="Uber" class="compat-logo" />
+            <img src="99.png" alt="99" class="compat-logo" />
+          </div>
         </div>
       </div>
     </section>
@@ -1154,59 +1008,45 @@
       <div class="container">
         <div class="section-head">
           <span class="eyebrow">Recursos</span>
-          <h2>O que o Guied entrega no seu dia a dia</h2>
-          <p>
-            Recursos pensados para ajudar antes, durante e depois de cada corrida, trazendo mais visão, mais controle e menos achismo.
-          </p>
+          <h2>O que o Guied entrega</h2>
+          <p>Funções práticas para ajudar antes, durante e depois de cada corrida.</p>
         </div>
 
         <div class="features-grid">
           <article class="feature-card">
             <div class="feature-icon">📊</div>
             <h3>Detector de corridas</h3>
-            <p>
-              O app ajuda você a entender melhor se a corrida vale a pena com uma leitura mais clara e útil no momento da decisão.
-            </p>
+            <p>Mais clareza para entender melhor se a corrida faz sentido para sua operação.</p>
           </article>
 
           <article class="feature-card">
             <div class="feature-icon">📍</div>
-            <h3>KM mínimo personalizado</h3>
-            <p>
-              Configure sua própria régua de operação para filtrar melhor o que faz sentido para seu perfil de trabalho.
-            </p>
+            <h3>KM mínimo</h3>
+            <p>Defina sua régua de operação e ajuste o app ao seu perfil de trabalho.</p>
           </article>
 
           <article class="feature-card">
             <div class="feature-icon">🎯</div>
             <h3>Meta diária</h3>
-            <p>
-              Defina seu objetivo de ganho e acompanhe seu avanço ao longo do dia com mais organização.
-            </p>
+            <p>Acompanhe seus objetivos e visualize seu avanço com mais organização.</p>
           </article>
 
           <article class="feature-card">
             <div class="feature-icon">🛡️</div>
             <h3>SOS com localização</h3>
-            <p>
-              Compartilhe sua localização em tempo real com um contato de confiança em momentos importantes da sua operação.
-            </p>
+            <p>Seu contato acompanha sua localização em tempo real por link.</p>
           </article>
 
           <article class="feature-card">
             <div class="feature-icon">💸</div>
             <h3>Bruto, líquido e gasolina</h3>
-            <p>
-              Tenha mais clareza sobre seus números para entender melhor o resultado real do seu turno.
-            </p>
+            <p>Mais visão sobre os números reais da sua rotina.</p>
           </article>
 
           <article class="feature-card">
             <div class="feature-icon">📈</div>
-            <h3>Relatórios e histórico</h3>
-            <p>
-              Visualize melhor sua rotina, seus resultados e a evolução da sua operação com informações organizadas.
-            </p>
+            <h3>Relatórios</h3>
+            <p>Histórico e acompanhamento para analisar melhor sua operação.</p>
           </article>
         </div>
       </div>
@@ -1216,39 +1056,29 @@
       <div class="container">
         <div class="section-head">
           <span class="eyebrow">Como funciona</span>
-          <h2>Entenda melhor cada função do Guied</h2>
-          <p>
-            O Guied foi criado para ser simples de usar, mas muito poderoso na prática. Veja como cada parte ajuda você.
-          </p>
+          <h2>Mais inteligência no dia a dia</h2>
+          <p>O Guied foi feito para ser simples de usar e forte na prática.</p>
         </div>
 
         <div class="details-grid">
           <article class="detail-card">
             <h3>HUD Inteligente</h3>
-            <p>
-              O HUD mostra informações de forma mais visual e rápida, ajudando você a tomar decisões com mais confiança sem precisar perder tempo interpretando tudo manualmente.
-            </p>
+            <p>Mostra informações com leitura mais rápida e visual no momento da decisão.</p>
           </article>
 
           <article class="detail-card">
             <h3>Modo Combo</h3>
-            <p>
-              Quando entra uma nova corrida, o Guied pode mostrar se ela combina com a rota atual e se faz sentido no contexto da operação, ajudando a enxergar o impacto da sequência e não só da corrida isolada.
-            </p>
+            <p>Ajuda a analisar se uma nova corrida combina com a rota e com o turno atual.</p>
           </article>
 
           <article class="detail-card">
             <h3>Avaliação Colaborativa do Local</h3>
-            <p>
-              Depois de finalizar uma corrida, o motorista pode avaliar como foi o local de coleta e de entrega. Essas avaliações ficam salvas e ajudam outros motoristas que receberem corridas para o mesmo endereço.
-            </p>
+            <p>Após finalizar uma corrida, motoristas avaliam coleta e entrega, ajudando outros usuários do app no mesmo endereço.</p>
           </article>
 
           <article class="detail-card">
             <h3>Visão operacional</h3>
-            <p>
-              O Guied não é só um app para ver corrida. Ele ajuda a pensar no turno inteiro, trazendo mais contexto, mais estratégia e mais informação útil para sua rotina.
-            </p>
+            <p>Mais contexto para trabalhar com menos achismo e mais estratégia.</p>
           </article>
         </div>
       </div>
@@ -1258,100 +1088,55 @@
       <div class="container">
         <div class="section-head">
           <span class="eyebrow">Diferenciais</span>
-          <h2>Duas funções que realmente mudam a decisão</h2>
-          <p>
-            O Guied não ajuda apenas a analisar valor. Ele também ajuda você a entender contexto, rota e reputação do local.
-          </p>
+          <h2>As funções que mudam a decisão</h2>
+          <p>O Guied ajuda você a enxergar contexto, rota e reputação do local.</p>
         </div>
 
         <div class="special-grid">
-          <article class="special-card special-card-combo">
+          <article class="special-card">
             <div class="special-top">
               <span class="special-badge">Diferencial</span>
               <h3>Modo Combo</h3>
             </div>
             <p>
-              O Modo Combo é uma função feita para analisar melhor a sequência das corridas. 
-              Ele ajuda a entender quando uma nova oferta combina com a rota atual e quando ela pode atrapalhar seu desempenho no turno.
+              Analisa a sequência das corridas e ajuda a entender quando uma nova oferta favorece ou atrapalha seu turno.
             </p>
             <ul class="special-list">
-              <li>Ajuda a pensar além da corrida isolada</li>
-              <li>Mostra melhor o impacto na sequência</li>
-              <li>Mais estratégia para motoristas e entregadores</li>
+              <li>Mais visão da sequência</li>
+              <li>Mais estratégia de rota</li>
+              <li>Menos decisão isolada</li>
             </ul>
           </article>
 
-          <article class="special-card special-card-rating">
+          <article class="special-card">
             <div class="special-top">
               <span class="special-badge">Diferencial</span>
               <h3>Avaliação do Local</h3>
             </div>
             <p>
-              O motorista pode avaliar coleta e entrega após finalizar a corrida. 
-              Essas avaliações criam uma inteligência coletiva por endereço, ajudando outros usuários do app a entenderem melhor como é aquele local antes de aceitar.
+              Motoristas avaliam coleta e entrega após a corrida, criando uma inteligência coletiva por endereço.
             </p>
             <ul class="special-list">
-              <li>Baseado na experiência real de outros motoristas</li>
+              <li>Baseado em experiência real</li>
               <li>Ajuda a evitar locais problemáticos</li>
-              <li>Traz mais contexto, segurança e previsibilidade</li>
+              <li>Mais contexto antes de aceitar</li>
             </ul>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="section" id="relatorios">
-      <div class="container">
-        <div class="section-head">
-          <span class="eyebrow">Relatórios</span>
-          <h2>Mais visão sobre seus números</h2>
-          <p>
-            O Guied ajuda você a acompanhar melhor a operação e ter mais clareza sobre o resultado do seu dia.
-          </p>
-        </div>
-
-        <div class="report-grid">
-          <article class="report-card">
-            <h3>Gasolina</h3>
-            <p>Tenha uma noção melhor do combustível gasto ao longo da operação.</p>
-            <strong>Mais controle</strong>
-          </article>
-
-          <article class="report-card">
-            <h3>Bruto</h3>
-            <p>Visualize o valor total gerado no período e acompanhe seu desempenho.</p>
-            <strong>Mais organização</strong>
-          </article>
-
-          <article class="report-card">
-            <h3>Líquido</h3>
-            <p>Entenda melhor o resultado real do seu turno com mais visão do ganho.</p>
-            <strong>Mais clareza</strong>
-          </article>
-
-          <article class="report-card">
-            <h3>Combos</h3>
-            <p>Acompanhe melhor as corridas em sequência e a produtividade da sua rota.</p>
-            <strong>Mais estratégia</strong>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section section-soft" id="diferenca">
+    <section class="section section-soft">
       <div class="container">
         <div class="section-head">
           <span class="eyebrow">Antes e depois</span>
-          <h2>Sem Guied, mais achismo. Com Guied, mais contexto e mais controle.</h2>
-          <p>
-            Compare a diferença entre trabalhar sem visão estratégica e rodar com informações melhores para decidir.
-          </p>
+          <h2>Mais clareza para decidir</h2>
         </div>
 
         <div class="before-after-grid">
           <div class="compare-card compare-before">
             <span class="compare-label">Antes do Guied</span>
-            <h3>Menos previsibilidade na operação</h3>
+            <h3>Mais achismo na operação</h3>
 
             <div class="mini-chart">
               <div class="bar-wrap">
@@ -1376,7 +1161,7 @@
 
           <div class="compare-card compare-after">
             <span class="compare-label">Depois do Guied</span>
-            <h3>Mais clareza e mais inteligência no turno</h3>
+            <h3>Mais controle e organização</h3>
 
             <div class="mini-chart">
               <div class="bar-wrap">
@@ -1417,100 +1202,12 @@
       </div>
     </section>
 
-    <section class="section" id="avaliacoes">
-      <div class="container">
-        <div class="section-head">
-          <span class="eyebrow">Avaliações do app</span>
-          <h2>Quem usa recomenda</h2>
-          <p>
-            Relatos de motoristas e entregadores que enxergam mais valor e mais contexto usando o Guied.
-          </p>
-        </div>
-
-        <div class="testimonial-slider">
-          <div class="testimonial-track">
-            <article class="testimonial-card">
-              <div class="stars">★★★★★</div>
-              <p>“Hoje eu consigo entender muito melhor quando a corrida faz sentido.”</p>
-              <strong>Carlos Henrique</strong>
-              <span>Motorista de app</span>
-            </article>
-
-            <article class="testimonial-card">
-              <div class="stars">★★★★★</div>
-              <p>“A função de avaliação do local ajuda muito antes de chegar.”</p>
-              <strong>Rafael Lima</strong>
-              <span>Entregador</span>
-            </article>
-
-            <article class="testimonial-card">
-              <div class="stars">★★★★★</div>
-              <p>“A parte do combo é um diferencial muito forte.”</p>
-              <strong>Diego Martins</strong>
-              <span>Entregador</span>
-            </article>
-
-            <article class="testimonial-card">
-              <div class="stars">★★★★★</div>
-              <p>“O painel ficou mais profissional e mais fácil de acompanhar.”</p>
-              <strong>Matheus Souza</strong>
-              <span>Motorista e entregador</span>
-            </article>
-
-            <article class="testimonial-card">
-              <div class="stars">★★★★★</div>
-              <p>“O SOS é uma função muito importante para quem roda à noite.”</p>
-              <strong>Bruno Almeida</strong>
-              <span>Motorista</span>
-            </article>
-
-            <article class="testimonial-card">
-              <div class="stars">★★★★★</div>
-              <p>“Ajuda bastante a ter uma noção melhor do lucro real.”</p>
-              <strong>Lucas Silva</strong>
-              <span>Motorista</span>
-            </article>
-
-            <article class="testimonial-card">
-              <div class="stars">★★★★★</div>
-              <p>“Hoje eu consigo entender muito melhor quando a corrida faz sentido.”</p>
-              <strong>Carlos Henrique</strong>
-              <span>Motorista de app</span>
-            </article>
-
-            <article class="testimonial-card">
-              <div class="stars">★★★★★</div>
-              <p>“A função de avaliação do local ajuda muito antes de chegar.”</p>
-              <strong>Rafael Lima</strong>
-              <span>Entregador</span>
-            </article>
-
-            <article class="testimonial-card">
-              <div class="stars">★★★★★</div>
-              <p>“A parte do combo é um diferencial muito forte.”</p>
-              <strong>Diego Martins</strong>
-              <span>Entregador</span>
-            </article>
-
-            <article class="testimonial-card">
-              <div class="stars">★★★★★</div>
-              <p>“O painel ficou mais profissional e mais fácil de acompanhar.”</p>
-              <strong>Matheus Souza</strong>
-              <span>Motorista e entregador</span>
-            </article>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section section-soft" id="planos">
+    <section class="section" id="planos">
       <div class="container">
         <div class="section-head">
           <span class="eyebrow">Planos</span>
-          <h2>Escolha o plano ideal para sua rotina</h2>
-          <p>
-            Entre com um plano competitivo e evolua para uma experiência ainda mais completa com o Pro+.
-          </p>
+          <h2>Escolha o plano ideal</h2>
+          <p>Entre com um plano competitivo e evolua para a experiência mais completa.</p>
         </div>
 
         <div class="plans-grid">
@@ -1521,11 +1218,11 @@
               <strong>Grátis</strong>
               <span>para começar</span>
             </div>
-            <p class="plan-text">Ideal para conhecer o app e entrar no ecossistema Guied.</p>
+            <p class="plan-text">Ideal para conhecer a proposta do app.</p>
             <ul>
-              <li>Acesso inicial ao app</li>
-              <li>Visão básica da proposta</li>
-              <li>Primeiro contato com a experiência Guied</li>
+              <li>Acesso inicial</li>
+              <li>Visão básica</li>
+              <li>Entrada no ecossistema Guied</li>
             </ul>
             <a
               href="https://play.google.com/store/apps/details?id=com.guied.app&hl=pt"
@@ -1533,7 +1230,8 @@
               target="_blank"
               rel="noopener noreferrer"
             >
-              Começar grátis
+              <span class="btn-icon">➜</span>
+              <span>Começar</span>
             </a>
           </article>
 
@@ -1544,12 +1242,12 @@
               <strong>R$ 11,99</strong>
               <span>/mês</span>
             </div>
-            <p class="plan-text">Mais inteligência e mais controle da rotina com preço de entrada competitivo.</p>
+            <p class="plan-text">Mais inteligência e mais controle da rotina.</p>
             <ul>
               <li>Detector de corridas</li>
-              <li>KM mínimo personalizado</li>
+              <li>KM mínimo</li>
               <li>Meta diária</li>
-              <li>Relatórios e visão operacional</li>
+              <li>Relatórios</li>
             </ul>
             <a
               href="https://play.google.com/store/apps/details?id=com.guied.app&hl=pt"
@@ -1557,7 +1255,8 @@
               target="_blank"
               rel="noopener noreferrer"
             >
-              Assinar Pro
+              <span class="btn-icon">★</span>
+              <span>Assinar Pro</span>
             </a>
           </article>
 
@@ -1568,12 +1267,12 @@
               <strong>R$ 34,99</strong>
               <span>/mês</span>
             </div>
-            <p class="plan-text">A experiência mais completa do Guied para quem quer mais contexto, mais estratégia e mais segurança.</p>
+            <p class="plan-text">A experiência mais completa do app.</p>
             <ul>
-              <li>Tudo do plano Pro</li>
-              <li>SOS com localização em tempo real</li>
-              <li>Avaliação colaborativa do local</li>
-              <li>Modo Combo</li>
+              <li>Tudo do Pro</li>
+              <li>SOS em tempo real</li>
+              <li>Avaliação do local</li>
+              <li>Modo combo</li>
             </ul>
             <a
               href="https://play.google.com/store/apps/details?id=com.guied.app&hl=pt"
@@ -1581,58 +1280,55 @@
               target="_blank"
               rel="noopener noreferrer"
             >
-              Assinar Pro+
+              <span class="btn-icon">✦</span>
+              <span>Assinar Pro+</span>
             </a>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="section" id="contato">
+    <section class="section section-soft" id="contato">
       <div class="container">
         <div class="section-head">
           <span class="eyebrow">Contato</span>
-          <h2>Fale com o suporte do Guied</h2>
-          <p>
-            Tire dúvidas, peça ajuda ou fale com o suporte diretamente pelo WhatsApp.
-          </p>
+          <h2>Fale com o suporte</h2>
+          <p>Tire dúvidas, peça ajuda ou fale diretamente pelo WhatsApp.</p>
         </div>
 
         <div class="contact-grid">
           <article class="contact-card">
-            <h3>Atendimento rápido pelo WhatsApp</h3>
-            <p>
-              Se você quer saber mais sobre o app, planos, suporte ou funcionalidades, é só chamar no WhatsApp.
-            </p>
-
+            <h3>Atendimento rápido</h3>
+            <p>Entre em contato para suporte, planos, dúvidas ou ajuda com o app.</p>
             <ul class="contact-list">
               <li>Suporte ao usuário</li>
               <li>Dúvidas sobre planos</li>
-              <li>Ajuda com instalação e uso</li>
-              <li>Contato direto com o time Guied</li>
-            </ul>
+              <li>Ajuda com instalação</li>
+              <li>Contato direto no WhatsApp</li>
+              <li></li>
+              <li></li>
 
+
+            </ul>
             <a
               href="https://wa.me/5585991098696?text=Ol%C3%A1%2C+quero+falar+com+o+suporte+do+Guied."
               class="btn btn-whatsapp"
               target="_blank"
               rel="noopener noreferrer"
             >
-              Entrar em contato no WhatsApp
+              <span class="btn-icon">✆</span>
+              <span>Entrar em contato</span>
             </a>
           </article>
 
           <article class="contact-card">
             <h3>Por que falar com o suporte?</h3>
-            <p>
-              O objetivo do Guied é ajudar você a trabalhar melhor. Se tiver qualquer dúvida, problema ou sugestão, o suporte pode ajudar você a aproveitar melhor o app.
-            </p>
-
+            <p>O objetivo do Guied é ajudar você a trabalhar melhor com mais clareza e mais segurança.</p>
             <ul class="contact-list">
-              <li>Mais clareza sobre as funções</li>
-              <li>Ajuda para entender qual plano faz mais sentido</li>
-              <li>Suporte em caso de dúvidas técnicas</li>
-              <li>Canal direto para feedback e melhorias</li>
+              <li>Entender melhor as funções</li>
+              <li>Escolher o plano ideal</li>
+              <li>Resolver dúvidas técnicas</li>
+              <li>Enviar sugestões e feedback</li>
             </ul>
           </article>
         </div>
@@ -1642,9 +1338,8 @@
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <button class="brand brand-button" onclick="scrollToTop()" aria-label="Voltar ao topo">
+      <button class="brand-button" onclick="scrollToTop()" aria-label="Voltar ao topo">
         <img src="logo.png" alt="Guied" class="brand-logo" />
-        <span class="brand-text">Guied</span>
       </button>
 
       <div class="footer-links">
@@ -1672,11 +1367,7 @@
     const mainNav = document.getElementById("mainNav");
 
     function updateThemeIcon() {
-      if (body.classList.contains("light-mode")) {
-        themeToggle.textContent = "☀️";
-      } else {
-        themeToggle.textContent = "🌙";
-      }
+      themeToggle.textContent = body.classList.contains("light-mode") ? "☀️" : "🌙";
     }
 
     if (savedTheme === "light") {
