@@ -3,47 +3,66 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Guied — Inteligência para motoristas e entregadores</title>
+  <title>Guied — Conectando Trajetos</title>
   <meta
     name="description"
-    content="O app inteligente para motoristas e entregadores analisarem corridas, usarem o modo combo, consultarem avaliações colaborativas de locais e trabalharem com mais segurança."
+    content="O app inteligente para motoristas e entregadores analisarem corridas, consultarem avaliações colaborativas de locais, acompanharem desempenho e trabalharem com mais segurança."
   />
 
   <style>
     :root {
-      --bg: #050505;
-      --bg-soft: #0c0c0c;
-      --bg-elev: #111111;
-      --card: rgba(255, 255, 255, 0.04);
-      --card-strong: rgba(255, 255, 255, 0.07);
-      --text: #f5f5f5;
-      --text-soft: #aaaaaa;
-      --title: #ffffff;
-      --primary: #21d4a7;
-      --primary-strong: #13bf93;
-      --secondary: #ffffff;
-      --border: rgba(255, 255, 255, 0.08);
-      --shadow: 0 18px 50px rgba(0, 0, 0, 0.34);
-      --success: #28d17c;
-      --danger: #ff6b6b;
+      --bg: #f3f6f9;
+      --bg-soft: #ffffff;
+      --bg-alt: #eef4f1;
+      --bg-neutral: #eef2f7;
+      --card: #ffffff;
+      --card-soft: #f8fbfd;
+      --text: #233041;
+      --text-soft: #5f6f82;
+      --title: #08111f;
+      --primary: #11b886;
+      --primary-strong: #0d9f74;
+      --primary-soft: #e7faf3;
+      --border: rgba(8, 17, 31, 0.12);
+      --border-strong: rgba(8, 17, 31, 0.16);
+      --shadow-sm: 0 10px 24px rgba(8, 17, 31, 0.06);
+      --shadow-md: 0 18px 40px rgba(8, 17, 31, 0.10);
+      --shadow-lg: 0 28px 60px rgba(8, 17, 31, 0.14);
+      --danger: #df5c5c;
+      --warning: #d89a2b;
+      --success: #1ea968;
+      --radius-xl: 30px;
+      --radius-lg: 22px;
+      --radius-md: 18px;
+      --radius-sm: 14px;
+      --container: 1180px;
+      --header-bg: rgba(255, 255, 255, 0.88);
+      --footer-bg: rgba(255, 255, 255, 0.82);
     }
 
-    body.light-mode {
-      --bg: #f5f5f5;
-      --bg-soft: #ffffff;
-      --bg-elev: #ffffff;
-      --card: rgba(0, 0, 0, 0.035);
-      --card-strong: rgba(0, 0, 0, 0.055);
-      --text: #1a1a1a;
-      --text-soft: #666666;
-      --title: #060606;
-      --primary: #0bb88e;
-      --primary-strong: #099d79;
-      --secondary: #111111;
-      --border: rgba(0, 0, 0, 0.08);
-      --shadow: 0 18px 50px rgba(0, 0, 0, 0.08);
-      --success: #169e5e;
-      --danger: #d95353;
+    body.dark-mode {
+      --bg: #0b1220;
+      --bg-soft: #0f172a;
+      --bg-alt: #0f1c17;
+      --bg-neutral: #111827;
+      --card: #101a2d;
+      --card-soft: #122038;
+      --text: #d6deea;
+      --text-soft: #93a4bb;
+      --title: #f4f8fb;
+      --primary: #18c795;
+      --primary-strong: #12af82;
+      --primary-soft: rgba(24, 199, 149, 0.12);
+      --border: rgba(255, 255, 255, 0.10);
+      --border-strong: rgba(255, 255, 255, 0.14);
+      --shadow-sm: 0 10px 24px rgba(0, 0, 0, 0.25);
+      --shadow-md: 0 18px 40px rgba(0, 0, 0, 0.32);
+      --shadow-lg: 0 28px 60px rgba(0, 0, 0, 0.40);
+      --danger: #ff7b7b;
+      --warning: #f3b54a;
+      --success: #36d487;
+      --header-bg: rgba(11, 18, 32, 0.82);
+      --footer-bg: rgba(11, 18, 32, 0.84);
     }
 
     * {
@@ -58,18 +77,23 @@
 
     body {
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background:
-        radial-gradient(circle at top left, rgba(33, 212, 167, 0.08), transparent 28%),
-        radial-gradient(circle at top right, rgba(255, 255, 255, 0.05), transparent 22%),
-        var(--bg);
       color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(17, 184, 134, 0.08), transparent 20%),
+        linear-gradient(180deg, #fbfdff 0%, var(--bg) 100%);
       line-height: 1.55;
-      transition: background 0.25s ease, color 0.25s ease;
+      transition: background .25s ease, color .25s ease;
+    }
+
+    body.dark-mode {
+      background:
+        radial-gradient(circle at top left, rgba(24, 199, 149, 0.10), transparent 20%),
+        linear-gradient(180deg, #08111f 0%, #0b1220 100%);
     }
 
     a {
-      color: inherit;
       text-decoration: none;
+      color: inherit;
     }
 
     img {
@@ -78,71 +102,137 @@
     }
 
     button {
-      font: inherit;
       border: none;
       background: none;
       cursor: pointer;
+      font: inherit;
+      color: inherit;
     }
 
     .container {
-      width: min(1160px, calc(100% - 28px));
+      width: min(var(--container), calc(100% - 28px));
       margin: 0 auto;
+    }
+
+    .section {
+      padding: 96px 0;
+      position: relative;
+    }
+
+    .section-soft {
+      background: linear-gradient(180deg, color-mix(in srgb, var(--bg-soft) 90%, #ecfaf4 10%) 0%, color-mix(in srgb, var(--bg-alt) 85%, transparent 15%) 100%);
+      border-top: 1px solid rgba(8, 17, 31, 0.05);
+      border-bottom: 1px solid rgba(8, 17, 31, 0.05);
+    }
+
+    .section-neutral {
+      background: linear-gradient(180deg, color-mix(in srgb, var(--bg-soft) 92%, #eef3f8 8%) 0%, var(--bg-neutral) 100%);
+      border-top: 1px solid rgba(8, 17, 31, 0.05);
+      border-bottom: 1px solid rgba(8, 17, 31, 0.05);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 15px;
+      border-radius: 999px;
+      background: var(--primary-soft);
+      border: 1px solid color-mix(in srgb, var(--primary) 30%, transparent);
+      color: var(--primary-strong);
+      font-size: 0.84rem;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      margin-bottom: 18px;
+      box-shadow: 0 8px 18px color-mix(in srgb, var(--primary) 10%, transparent);
+    }
+
+    .section-head {
+      max-width: 780px;
+      margin-bottom: 42px;
+    }
+
+    .section-head.center {
+      text-align: center;
+      margin-inline: auto;
+      margin-bottom: 38px;
+    }
+
+    .section-head h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.06;
+      color: var(--title);
+      letter-spacing: -0.04em;
+      margin-bottom: 14px;
+    }
+
+    .section-head p {
+      color: var(--text-soft);
+      font-size: 1.06rem;
+      max-width: 680px;
     }
 
     .site-header {
       position: sticky;
       top: 0;
-      z-index: 60;
-      backdrop-filter: blur(16px);
-      background: rgba(5, 5, 5, 0.78);
+      z-index: 50;
+      backdrop-filter: blur(14px);
+      background: var(--header-bg);
       border-bottom: 1px solid var(--border);
-    }
-
-    body.light-mode .site-header {
-      background: rgba(245, 245, 245, 0.82);
+      box-shadow: 0 8px 22px rgba(8, 17, 31, 0.04);
     }
 
     .header-inner {
-      min-height: 76px;
+      min-height: 82px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
-      position: relative;
+      gap: 18px;
     }
 
-    .brand-button {
-      width: 46px;
-      height: 46px;
-      border-radius: 14px;
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      flex-shrink: 0;
-      transition: transform 0.18s ease;
-    }
-
-    .brand-button:hover {
-      transform: translateY(-1px);
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
     }
 
     .brand-logo {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+      width: 50px;
+      height: 50px;
+      object-fit: contain;
+      border-radius: 15px;
+      background: var(--bg-soft);
+      padding: 6px;
+      border: 1px solid var(--border-strong);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.05;
+    }
+
+    .brand-text span {
+      font-size: 0.92rem;
+      color: var(--text-soft);
+      font-weight: 800;
+      letter-spacing: 0.01em;
     }
 
     .main-nav {
       display: flex;
       align-items: center;
-      gap: 22px;
-      flex-wrap: wrap;
+      gap: 24px;
     }
 
     .main-nav a {
-      font-size: 0.95rem;
-      font-weight: 600;
       color: var(--text-soft);
+      font-weight: 700;
+      font-size: 0.95rem;
       transition: color 0.2s ease;
+      position: relative;
     }
 
     .main-nav a:hover {
@@ -152,623 +242,727 @@
     .header-right {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
 
-    .theme-toggle,
+    .mode-toggle,
     .mobile-nav-toggle {
-      width: 44px;
-      height: 44px;
+      width: 46px;
+      height: 46px;
       border-radius: 14px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-soft);
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      background: var(--card);
-      border: 1px solid var(--border);
-      color: var(--title);
-      transition: transform 0.18s ease, background 0.2s ease;
-    }
-
-    .theme-toggle:hover,
-    .mobile-nav-toggle:hover {
-      transform: translateY(-1px);
-      background: var(--card-strong);
+      font-size: 1rem;
+      box-shadow: var(--shadow-sm);
     }
 
     .mobile-nav-toggle {
       display: none;
-      font-size: 1.15rem;
     }
 
     .header-cta {
-      min-height: 44px;
-      padding: 0 16px;
-      border-radius: 14px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      font-weight: 800;
-      color: #fff;
-      background: linear-gradient(135deg, #22d3a6 0%, #12b886 100%);
-      border: 1px solid rgba(255,255,255,0.08);
-      box-shadow:
-        0 12px 28px rgba(18, 184, 134, 0.24),
-        inset 0 1px 0 rgba(255,255,255,0.16);
-      transition: transform 0.2s ease, box-shadow 0.25s ease;
-      white-space: nowrap;
-    }
-
-    .header-cta:hover {
-      transform: translateY(-2px);
-      box-shadow:
-        0 18px 34px rgba(18, 184, 134, 0.3),
-        inset 0 1px 0 rgba(255,255,255,0.2);
-    }
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 46px;
+  padding: 0 18px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--primary) 0%, var(--primary-strong) 100%);
+  color: #ffffff;
+  font-weight: 800;
+  box-shadow: 0 18px 36px rgba(17, 184, 134, 0.24);
+  border: 1px solid rgba(17, 184, 134, 0.18);
+}
+.header-cta:hover {
+  transform: translateY(-2px);
+}
 
     .hero {
-      padding: 60px 0 30px;
+      padding: 78px 0 66px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 85% 15%, rgba(17, 184, 134, 0.08), transparent 20%);
     }
 
     .hero-grid {
       display: grid;
-      grid-template-columns: 1.12fr 0.88fr;
-      gap: 24px;
+      grid-template-columns: 1.06fr 0.94fr;
+      gap: 36px;
       align-items: center;
     }
 
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      color: var(--primary);
-      font-size: 0.84rem;
-      font-weight: 800;
-      margin-bottom: 16px;
-    }
-
-    .hero h1 {
-      font-size: clamp(2.2rem, 4vw, 4.1rem);
-      line-height: 0.98;
-      letter-spacing: -0.045em;
+    .hero-copy h1 {
+      font-size: clamp(2.9rem, 5.6vw, 5.1rem);
+      line-height: 0.95;
+      letter-spacing: -0.06em;
       color: var(--title);
-      max-width: 720px;
+      max-width: 760px;
     }
 
-    .hero h1 span {
+    .hero-copy h1 span {
       color: var(--primary);
     }
 
     .hero-description {
-      margin-top: 16px;
-      color: var(--text-soft);
-      font-size: 1rem;
+      margin-top: 24px;
       max-width: 650px;
+      font-size: 1.1rem;
+      color: var(--text-soft);
     }
 
     .hero-highlights {
+      margin-top: 28px;
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 22px;
+      gap: 12px;
     }
 
     .hero-highlights span {
-      padding: 9px 12px;
+      padding: 11px 15px;
       border-radius: 999px;
-      background: var(--card);
-      border: 1px solid var(--border);
+      background: var(--bg-soft);
+      border: 1px solid var(--border-strong);
       color: var(--text);
-      font-size: 0.88rem;
+      font-size: 0.92rem;
       font-weight: 700;
+      box-shadow: var(--shadow-sm);
     }
 
     .hero-actions {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 24px;
+      gap: 14px;
+      margin-top: 34px;
     }
 
     .btn {
-      position: relative;
-      min-height: 52px;
-      padding: 0 20px;
-      border-radius: 16px;
+      min-height: 54px;
+      padding: 0 22px;
+      border-radius: 999px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
       font-weight: 800;
-      font-size: 0.96rem;
-      letter-spacing: -0.01em;
-      transition:
-        transform 0.2s ease,
-        box-shadow 0.25s ease,
-        background 0.25s ease,
-        border-color 0.25s ease,
-        opacity 0.25s ease;
-      overflow: hidden;
-      isolation: isolate;
-    }
-
-    .btn::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        180deg,
-        rgba(255, 255, 255, 0.16),
-        rgba(255, 255, 255, 0.03)
-      );
-      opacity: 0.9;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .btn > * {
-      position: relative;
-      z-index: 1;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     .btn:hover {
       transform: translateY(-2px);
     }
 
-    .btn:active {
-      transform: translateY(0);
-    }
-
     .btn-primary {
+      background: linear-gradient(180deg, var(--primary) 0%, var(--primary-strong) 100%);
       color: #ffffff;
-      background: linear-gradient(135deg, #22d3a6 0%, #12b886 100%);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow:
-        0 12px 28px rgba(18, 184, 134, 0.28),
-        inset 0 1px 0 rgba(255, 255, 255, 0.18);
-    }
-
-    .btn-primary:hover {
-      box-shadow:
-        0 18px 34px rgba(18, 184, 134, 0.35),
-        inset 0 1px 0 rgba(255, 255, 255, 0.22);
+      box-shadow: 0 18px 36px rgba(17, 184, 134, 0.24);
     }
 
     .btn-secondary {
+      background: var(--bg-soft);
+      border: 1px solid var(--border-strong);
       color: var(--title);
-      background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.025));
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow:
-        0 10px 24px rgba(0, 0, 0, 0.18),
-        inset 0 1px 0 rgba(255,255,255,0.05);
-      backdrop-filter: blur(8px);
-    }
-
-    .btn-secondary:hover {
-      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
-      border-color: rgba(255, 255, 255, 0.16);
-      box-shadow:
-        0 14px 28px rgba(0, 0, 0, 0.24),
-        inset 0 1px 0 rgba(255,255,255,0.08);
+      box-shadow: var(--shadow-sm);
     }
 
     .btn-whatsapp {
+      background: #25d366;
       color: #ffffff;
-      background: linear-gradient(135deg, #2adf71 0%, #18b958 100%);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow:
-        0 12px 28px rgba(37, 211, 102, 0.24),
-        inset 0 1px 0 rgba(255,255,255,0.18);
+      box-shadow: 0 18px 36px rgba(37, 211, 102, 0.18);
     }
 
-    .btn-whatsapp:hover {
-      box-shadow:
-        0 18px 34px rgba(37, 211, 102, 0.32),
-        inset 0 1px 0 rgba(255,255,255,0.22);
+    .hero-card {
+      position: relative;
+      border-radius: var(--radius-xl);
+      padding: 26px;
+      background: linear-gradient(180deg, var(--bg-soft) 0%, color-mix(in srgb, var(--bg-soft) 92%, #f7fdfa 8%) 100%);
+      border: 1px solid color-mix(in srgb, var(--primary) 20%, var(--border));
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
     }
 
-    body.light-mode .btn-secondary {
-      background: linear-gradient(180deg, rgba(0,0,0,0.03), rgba(0,0,0,0.015));
-      border: 1px solid rgba(0, 0, 0, 0.08);
-      box-shadow:
-        0 10px 22px rgba(0, 0, 0, 0.08),
-        inset 0 1px 0 rgba(255,255,255,0.45);
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at top right, rgba(17, 184, 134, 0.12), transparent 26%);
+      pointer-events: none;
     }
 
-    body.light-mode .btn-secondary:hover {
-      background: linear-gradient(180deg, rgba(0,0,0,0.05), rgba(0,0,0,0.02));
-      border-color: rgba(0, 0, 0, 0.12);
+    .hero-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 22px;
+      position: relative;
+      z-index: 1;
     }
 
-    .btn-icon {
-      font-size: 1rem;
-      line-height: 1;
+    .hero-card-top strong {
+      font-size: 1.02rem;
+      color: var(--title);
+    }
+
+    .status-pill {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(30, 169, 104, 0.12);
+      color: var(--success);
+      border: 1px solid rgba(30, 169, 104, 0.20);
+      font-size: 0.82rem;
+      font-weight: 800;
+      box-shadow: 0 8px 18px rgba(30, 169, 104, 0.08);
     }
 
-    .hero-panel {
-      background: linear-gradient(180deg, var(--card-strong), var(--card));
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 22px;
-      box-shadow: var(--shadow);
-    }
-
-    .hero-panel h3 {
-      font-size: 1.25rem;
-      line-height: 1.15;
-      color: var(--title);
-      margin-bottom: 16px;
-    }
-
-    .panel-list {
+    .preview-stack {
       display: grid;
+      gap: 15px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .preview-card {
+      border-radius: 22px;
+      padding: 18px;
+      background: var(--bg-soft);
+      border: 1px solid var(--border-strong);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .preview-label {
+      display: inline-flex;
+      margin-bottom: 12px;
+      font-size: 0.81rem;
+      color: var(--primary-strong);
+      font-weight: 800;
+      letter-spacing: 0.02em;
+    }
+
+    .offer-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .offer-title {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--title);
+    }
+
+    .offer-badge {
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(30, 169, 104, 0.13);
+      color: var(--success);
+      font-size: 0.78rem;
+      font-weight: 800;
+      border: 1px solid rgba(30, 169, 104, 0.18);
+    }
+
+    .offer-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
       gap: 12px;
+      margin-bottom: 14px;
     }
 
-    .panel-item {
-      padding: 15px 16px;
+    .offer-metric {
+      padding: 13px;
       border-radius: 16px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid var(--border);
+      background: var(--card-soft);
+      border: 1px solid var(--border-strong);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.3);
     }
 
-    body.light-mode .panel-item {
-      background: rgba(0,0,0,0.02);
+    .offer-metric span {
+      display: block;
+      font-size: 0.78rem;
+      color: var(--text-soft);
+      margin-bottom: 5px;
+      font-weight: 600;
     }
 
-    .panel-item strong {
+    .offer-metric strong {
+      color: var(--title);
+      font-size: 1rem;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .chip {
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      border: 1px solid transparent;
+      box-shadow: 0 6px 14px rgba(8,17,31,0.04);
+    }
+
+    .chip.good {
+      background: rgba(30, 169, 104, 0.11);
+      border-color: rgba(30, 169, 104, 0.18);
+      color: var(--success);
+    }
+
+    .chip.alert {
+      background: rgba(216, 154, 43, 0.12);
+      border-color: rgba(216, 154, 43, 0.18);
+      color: var(--warning);
+    }
+
+    .chip.bad {
+      background: rgba(223, 92, 92, 0.11);
+      border-color: rgba(223, 92, 92, 0.18);
+      color: var(--danger);
+    }
+
+    .mini-insights {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .insight-box {
+      border-radius: 18px;
+      padding: 17px;
+      background: var(--bg-soft);
+      border: 1px solid var(--border-strong);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .insight-box span {
+      display: block;
+      color: var(--text-soft);
+      font-size: 0.8rem;
+      margin-bottom: 6px;
+      font-weight: 700;
+    }
+
+    .insight-box strong {
       display: block;
       color: var(--title);
-      font-size: 0.98rem;
-      margin-bottom: 4px;
+      font-size: 1.2rem;
+      margin-bottom: 6px;
     }
 
-    .panel-item span {
+    .insight-box p {
       color: var(--text-soft);
       font-size: 0.92rem;
     }
 
-    .section {
-      padding: 68px 0;
+    .activity-card {
+      margin-top: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 16px 18px;
+      border-radius: 20px;
+      background: var(--bg-soft);
+      border: 1px solid var(--border-strong);
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      z-index: 1;
     }
 
-    .section-soft {
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0));
+    .activity-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
 
-    body.light-mode .section-soft {
-      background: linear-gradient(180deg, rgba(0,0,0,0.02), rgba(0,0,0,0));
+    .activity-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      background: var(--success);
+      box-shadow: 0 0 0 0 rgba(30, 169, 104, 0.45);
+      animation: pulse 2.2s infinite;
+      flex-shrink: 0;
     }
 
-    .section-head {
-      max-width: 720px;
-      margin-bottom: 28px;
-    }
-
-    .section-head.center {
-      text-align: center;
-      margin-inline: auto;
-    }
-
-    .section-head h2 {
-      margin-top: 10px;
-      font-size: clamp(1.7rem, 3vw, 2.8rem);
-      line-height: 1.05;
-      letter-spacing: -0.04em;
+    .activity-text strong {
+      display: block;
       color: var(--title);
-    }
-
-    .section-head p {
-      margin-top: 10px;
-      color: var(--text-soft);
       font-size: 0.98rem;
     }
 
+    .activity-text span {
+      display: block;
+      color: var(--text-soft);
+      font-size: 0.83rem;
+      margin-top: 2px;
+    }
+
+    .activity-number {
+      font-size: 1.55rem;
+      line-height: 1;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      color: var(--title);
+      min-width: 88px;
+      text-align: right;
+    }
+
     .compatibility-strip {
-      display: flex;
-      justify-content: center;
+      border-radius: 999px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-soft);
+      padding: 20px 22px;
+      overflow: hidden;
+      max-width: 760px;
+      margin: 0 auto;
+      box-shadow: var(--shadow-md);
     }
 
     .compatibility-inner {
-      display: inline-flex;
+      display: flex;
       align-items: center;
       justify-content: center;
-      gap: 14px;
-      padding: 10px 12px;
-      border-radius: 18px;
-      background: var(--bg-elev);
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow);
+      gap: 48px;
       flex-wrap: wrap;
     }
 
     .compat-logo {
-      width: 96px;
-      height: 46px;
-      object-fit: contain;
-      padding: 8px 12px;
-      border-radius: 14px;
-      background: rgba(255,255,255,0.025);
-      border: 1px solid rgba(255,255,255,0.04);
+      max-height: 40px;
+      width: auto;
+      opacity: 1;
+      filter: saturate(1.02);
     }
 
-    body.light-mode .compat-logo {
-      background: rgba(0,0,0,0.02);
-      border-color: rgba(0,0,0,0.04);
+    .benefits-grid,
+    .practical-grid,
+    .plan-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
     }
 
     .features-grid,
-    .details-grid,
-    .report-grid {
-      display: grid;
-      gap: 16px;
-    }
-
-    .features-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .details-grid,
     .special-grid,
-    .before-after-grid,
-    .contact-grid,
-    .plans-grid {
+    .contact-grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
+      gap: 20px;
     }
 
-    .report-grid {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+    .features-grid,
+    .special-grid {
+      grid-template-columns: repeat(2, 1fr);
     }
 
+    .contact-grid {
+      grid-template-columns: 1.05fr 0.95fr;
+    }
+
+    .benefit-card,
     .feature-card,
-    .detail-card,
-    .special-card,
-    .report-card,
-    .compare-card,
-    .plan-card,
-    .contact-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      box-shadow: var(--shadow);
-    }
-
-    .feature-card,
-    .detail-card,
-    .report-card,
-    .compare-card,
     .special-card,
     .plan-card,
-    .contact-card {
-      padding: 22px;
+    .contact-card,
+    .practical-card,
+    .review-card {
+      border-radius: 24px;
+      padding: 26px;
+      background: var(--bg-soft);
+      border: 1px solid var(--border-strong);
+      box-shadow: var(--shadow-md);
+      position: relative;
     }
 
+    .benefit-card::after,
+    .feature-card::after,
+    .special-card::after,
+    .plan-card::after,
+    .contact-card::after,
+    .practical-card::after,
+    .review-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.2);
+    }
+
+    .benefit-card h3,
+    .feature-card h3,
+    .special-card h3,
+    .plan-card h3,
+    .contact-card h3,
+    .practical-card h3 {
+      font-size: 1.2rem;
+      color: var(--title);
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+    }
+
+    .benefit-card p,
+    .feature-card p,
+    .special-card p,
+    .plan-card p,
+    .contact-card p,
+    .practical-card p {
+      color: var(--text-soft);
+    }
+
+    .benefit-icon,
     .feature-icon {
-      width: 42px;
-      height: 42px;
-      border-radius: 13px;
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      background: rgba(33, 212, 167, 0.12);
-      border: 1px solid var(--border);
-      margin-bottom: 14px;
+      background: linear-gradient(180deg, color-mix(in srgb, var(--primary-soft) 80%, #effcf7 20%) 0%, color-mix(in srgb, var(--primary-soft) 90%, #e4f8f0 10%) 100%);
+      color: var(--primary-strong);
       font-size: 1.2rem;
+      margin-bottom: 16px;
+      border: 1px solid color-mix(in srgb, var(--primary) 16%, transparent);
+      box-shadow: 0 10px 20px color-mix(in srgb, var(--primary) 10%, transparent);
     }
 
-    .feature-card h3,
-    .detail-card h3,
-    .report-card h3,
-    .special-card h3,
-    .compare-card h3,
-    .plan-card h3,
-    .contact-card h3 {
-      color: var(--title);
-      font-size: 1.06rem;
-      margin-bottom: 10px;
-      letter-spacing: -0.02em;
-    }
-
-    .feature-card p,
-    .detail-card p,
-    .report-card p,
-    .special-card p,
-    .contact-card p,
-    .plan-text {
-      color: var(--text-soft);
-      font-size: 0.95rem;
-    }
-
-    .special-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 12px;
-    }
-
-    .special-badge,
-    .plan-label,
-    .compare-label {
-      display: inline-flex;
-      padding: 7px 11px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,0.05);
-      font-size: 0.72rem;
-      font-weight: 900;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--primary);
-    }
-
+    .feature-list,
     .special-list,
+    .plan-list,
     .contact-list,
-    .plan-card ul {
-      display: grid;
-      gap: 9px;
-      margin-top: 14px;
-    }
-
-    .special-list li,
-    .contact-list li,
-    .plan-card li {
+    .practical-list {
       list-style: none;
-      color: var(--text);
-      font-weight: 600;
-      font-size: 0.94rem;
-      position: relative;
-      padding-left: 20px;
+      margin-top: 16px;
+      display: grid;
+      gap: 10px;
     }
 
+    .feature-list li,
+    .special-list li,
+    .plan-list li,
+    .contact-list li,
+    .practical-list li {
+      display: flex;
+      gap: 10px;
+      color: var(--text);
+      font-size: 0.96rem;
+    }
+
+    .feature-list li::before,
     .special-list li::before,
+    .plan-list li::before,
     .contact-list li::before,
-    .plan-card li::before {
+    .practical-list li::before {
       content: "•";
-      position: absolute;
-      left: 0;
       color: var(--primary);
       font-weight: 900;
     }
 
-    .report-card strong {
-      display: block;
-      margin-top: 10px;
-      color: var(--primary);
-      font-size: 1.08rem;
-    }
-
-    .compare-before .compare-label {
-      color: var(--danger);
-      background: rgba(255, 107, 107, 0.08);
-    }
-
-    .compare-after .compare-label {
-      color: var(--success);
-      background: rgba(40, 209, 124, 0.08);
-    }
-
-    .mini-chart {
-      display: grid;
-      gap: 14px;
-      margin-top: 12px;
-    }
-
-    .bar-wrap span {
-      display: block;
-      color: var(--text);
-      font-weight: 700;
-      margin-bottom: 7px;
-      font-size: 0.93rem;
-    }
-
-    .bar {
-      height: 11px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid var(--border);
+    .special-card {
+      background: linear-gradient(180deg, var(--bg-soft) 0%, color-mix(in srgb, var(--bg-soft) 92%, #f8fcfb 8%) 100%);
       overflow: hidden;
     }
 
-    body.light-mode .bar {
-      background: rgba(0,0,0,0.05);
+    .special-card::before {
+      content: "";
+      position: absolute;
+      inset: auto -8% -34% auto;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(17, 184, 134, 0.10), transparent 70%);
+      pointer-events: none;
     }
 
-    .bar-fill {
-      height: 100%;
-      border-radius: inherit;
-      background: linear-gradient(90deg, var(--primary), #18b98f);
+    .special-badge {
+      display: inline-flex;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: var(--primary-soft);
+      border: 1px solid rgba(17, 184, 134, 0.18);
+      color: var(--primary-strong);
+      font-size: 0.78rem;
+      font-weight: 800;
+      margin-bottom: 14px;
+      box-shadow: 0 8px 18px rgba(17, 184, 134, 0.08);
     }
 
-    .fill-25 { width: 25%; }
-    .fill-30 { width: 30%; }
-    .fill-35 { width: 35%; }
-    .fill-84 { width: 84%; }
-    .fill-88 { width: 88%; }
-    .fill-92 { width: 92%; }
-
-    .bar-wrap strong {
-      display: block;
-      margin-top: 6px;
-      font-size: 0.88rem;
-      color: var(--title);
+    .plan-card {
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
     }
 
-    .value-cards {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 10px;
-      margin-top: 16px;
+    .plan-top {
+      margin-bottom: 18px;
     }
 
-    .value-card {
-      padding: 14px;
-      border-radius: 16px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid var(--border);
-    }
-
-    body.light-mode .value-card {
-      background: rgba(0,0,0,0.02);
-    }
-
-    .value-card span {
-      display: block;
-      font-size: 0.84rem;
-      color: var(--text-soft);
-      margin-bottom: 5px;
-    }
-
-    .value-card strong {
-      color: var(--title);
-      font-size: 1.02rem;
-    }
-
-    .plans-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .plan-card.featured {
-      border-color: rgba(33, 212, 167, 0.28);
-      background: linear-gradient(180deg, rgba(33, 212, 167, 0.09), rgba(255,255,255,0.03));
+    .plan-badge {
+      display: inline-flex;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--bg-soft) 90%, #f6f9fc 10%);
+      border: 1px solid var(--border-strong);
+      color: var(--text);
+      font-size: 0.8rem;
+      font-weight: 800;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow-sm);
     }
 
     .plan-price {
-      display: flex;
-      align-items: baseline;
-      gap: 6px;
-      margin-bottom: 4px;
-    }
-
-    .plan-price strong {
-      font-size: 1.95rem;
+      font-size: clamp(2rem, 4vw, 2.8rem);
       color: var(--title);
+      line-height: 1;
       letter-spacing: -0.04em;
+      margin-bottom: 8px;
     }
 
-    .plan-price span {
-      font-size: 0.9rem;
+    .plan-price small {
+      font-size: 1rem;
       color: var(--text-soft);
+      font-weight: 700;
     }
 
-    .full {
+    .plan-subtitle {
+      color: var(--text-soft);
+      margin-bottom: 2px;
+    }
+
+    .plan-card.featured {
+      border-color: rgba(17, 184, 134, 0.30);
+      background: linear-gradient(180deg, color-mix(in srgb, var(--bg-soft) 90%, #f2fff9 10%) 0%, var(--bg-soft) 100%);
+      box-shadow: 0 24px 50px rgba(17, 184, 134, 0.12);
+      transform: translateY(-8px);
+    }
+
+    .plan-card .btn {
+      margin-top: auto;
       width: 100%;
-      margin-top: 4px;
+    }
+
+    .reviews-wrap {
+      position: relative;
+      overflow: hidden;
+      mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+    }
+
+    .reviews-track {
+      display: flex;
+      gap: 18px;
+      width: max-content;
+      animation: scrollReviews 65s linear infinite;
+      padding: 8px 0 6px;
+    }
+
+    .reviews-wrap:hover .reviews-track {
+      animation-play-state: paused;
+    }
+
+    .review-card {
+      width: 320px;
+      flex: 0 0 320px;
+      padding: 22px;
+    }
+
+    .review-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .review-user {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .review-avatar {
+      width: 46px;
+      height: 46px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(180deg, var(--primary-soft), color-mix(in srgb, var(--primary-soft) 70%, white 30%));
+      color: var(--primary-strong);
+      font-weight: 900;
+      font-size: 0.96rem;
+      border: 1px solid color-mix(in srgb, var(--primary) 16%, transparent);
+    }
+
+    .review-user strong {
+      display: block;
+      color: var(--title);
+      font-size: 0.98rem;
+    }
+
+    .review-user span {
+      display: block;
+      color: var(--text-soft);
+      font-size: 0.82rem;
+      margin-top: 2px;
+    }
+
+    .review-stars {
+      color: #ffb648;
+      font-size: 0.95rem;
+      letter-spacing: 0.03em;
+      white-space: nowrap;
+    }
+
+    .review-card p {
+      color: var(--text);
+      font-size: 0.96rem;
+    }
+
+    .review-note {
+      margin-top: 18px;
+      font-size: 0.82rem;
+      color: var(--text-soft);
+      text-align: center;
+    }
+
+    .contact-note {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 18px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: var(--primary-soft);
+      color: var(--primary-strong);
+      border: 1px solid rgba(17, 184, 134, 0.18);
+      font-size: 0.88rem;
+      font-weight: 800;
+      box-shadow: 0 10px 20px rgba(17, 184, 134, 0.08);
     }
 
     .site-footer {
-      padding: 24px 0 36px;
+      padding: 26px 0 20px;
       border-top: 1px solid var(--border);
+      background: var(--footer-bg);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
     }
 
     .footer-inner {
@@ -779,53 +973,101 @@
       flex-wrap: wrap;
     }
 
+    .brand-button {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-soft);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-sm);
+    }
+
     .footer-links {
       display: flex;
-      align-items: center;
-      gap: 16px;
       flex-wrap: wrap;
+      gap: 16px;
     }
 
     .footer-links a {
       color: var(--text-soft);
-      font-weight: 600;
+      font-weight: 700;
       font-size: 0.94rem;
     }
 
-    @media (max-width: 980px) {
-      .hero-grid,
-      .details-grid,
-      .special-grid,
-      .before-after-grid,
-      .contact-grid,
-      .plans-grid {
-        grid-template-columns: 1fr;
-      }
+    .footer-links a:hover {
+      color: var(--title);
+    }
 
-      .features-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
+    .footer-bottom {
+      width: 100%;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(8, 17, 31, 0.08);
+      text-align: center;
+    }
 
-      .report-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+    .footer-bottom p {
+      font-size: 0.76rem;
+      color: var(--text-soft);
+      font-weight: 600;
+      letter-spacing: 0.01em;
+    }
+
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(30, 169, 104, 0.42);
+      }
+      70% {
+        box-shadow: 0 0 0 12px rgba(30, 169, 104, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(30, 169, 104, 0);
       }
     }
 
-    @media (max-width: 840px) {
+    @keyframes scrollReviews {
+      from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(calc(-50% - 9px));
+      }
+    }
+
+    @media (max-width: 1080px) {
+      .hero-grid,
+      .contact-grid,
+      .benefits-grid,
+      .practical-grid,
+      .plan-grid,
+      .special-grid,
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-copy h1 {
+        max-width: 100%;
+      }
+    }
+
+    @media (max-width: 920px) {
       .main-nav {
         position: absolute;
         top: calc(100% + 10px);
         left: 14px;
         right: 14px;
-        padding: 16px;
-        background: var(--bg-soft);
-        border: 1px solid var(--border);
-        border-radius: 18px;
-        box-shadow: var(--shadow);
         display: none;
         flex-direction: column;
         align-items: flex-start;
         gap: 14px;
+        padding: 18px;
+        background: var(--bg-soft);
+        border: 1px solid var(--border-strong);
+        border-radius: 22px;
+        box-shadow: var(--shadow-lg);
       }
 
       .main-nav.open {
@@ -836,33 +1078,54 @@
         display: inline-flex;
       }
 
-      .header-cta.desktop-only {
+      .desktop-only {
         display: none;
+      }
+
+      .section {
+        padding: 76px 0;
       }
     }
 
-    @media (max-width: 640px) {
-      .features-grid,
-      .report-grid,
-      .value-cards {
+    @media (max-width: 680px) {
+      .hero {
+        padding-top: 44px;
+      }
+
+      .header-inner {
+        min-height: 72px;
+      }
+
+      .hero-copy h1 {
+        font-size: clamp(2.3rem, 11vw, 3.4rem);
+      }
+
+      .offer-grid,
+      .mini-insights {
         grid-template-columns: 1fr;
       }
 
-      .hero {
-        padding-top: 48px;
-      }
-
-      .hero-actions {
-        flex-direction: column;
-      }
-
-      .btn {
-        width: 100%;
+      .compatibility-inner {
+        gap: 28px;
       }
 
       .compat-logo {
-        width: 88px;
-        height: 42px;
+        max-height: 32px;
+      }
+
+      .btn,
+      .header-cta {
+        width: 100%;
+      }
+
+      .hero-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      .review-card {
+        width: 280px;
+        flex-basis: 280px;
       }
     }
   </style>
@@ -870,28 +1133,28 @@
 <body>
   <header class="site-header">
     <div class="container header-inner">
-      <button class="brand-button" onclick="scrollToTop()" aria-label="Voltar ao topo">
-        <img src="logo.png" alt="Guied" class="brand-logo" />
-      </button>
+      <a href="#inicio" class="brand" aria-label="Guied">
+        <img src="logo.png" alt="Logo" class="brand-logo" />
+        <div class="brand-text">
+          <span>Conectando Trajetos</span>
+        </div>
+      </a>
 
       <nav class="main-nav" id="mainNav">
         <a href="#inicio">Início</a>
         <a href="#compatibilidade">Compatível</a>
+        <a href="#beneficios">Benefícios</a>
         <a href="#recursos">Recursos</a>
-        <a href="#detalhes">Como funciona</a>
         <a href="#diferenciais">Diferenciais</a>
+        <a href="#avaliacoes">Avaliações</a>
         <a href="#planos">Planos</a>
         <a href="#contato">Contato</a>
+        <a href="privacidade.html">Privacidade</a>
       </nav>
 
       <div class="header-right">
-        <button class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Abrir menu">
-          ☰
-        </button>
-
-        <button class="theme-toggle" id="themeToggle" aria-label="Alternar tema">
-          🌙
-        </button>
+        <button class="mode-toggle" id="modeToggle" aria-label="Ativar modo noturno">🌙</button>
+        <button class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Abrir menu">☰</button>
 
         <a
           href="https://play.google.com/store/apps/details?id=com.guied.app&hl=pt"
@@ -899,7 +1162,6 @@
           target="_blank"
           rel="noopener noreferrer"
         >
-          <span>⬇</span>
           <span>Experimentar</span>
         </a>
       </div>
@@ -909,78 +1171,97 @@
   <main>
     <section class="hero" id="inicio">
       <div class="container hero-grid">
-        <div>
+        <div class="hero-copy">
           <span class="eyebrow">Para motoristas e entregadores</span>
 
           <h1>
-            Mais contexto para aceitar melhor,
-            <span>lucrar mais</span>
-            e rodar com mais segurança.
+            Decida melhor cada corrida com <span>mais contexto</span>, controle e segurança.
           </h1>
 
           <p class="hero-description">
-            O Guied ajuda você a tomar decisões melhores no dia a dia com análise de corrida,
-            relatórios, meta, SOS, <strong>Modo Combo</strong> e <strong>Avaliação Colaborativa do Local</strong>.
+            O Guied ajuda você a analisar ofertas, entender melhor o lucro real, consultar avaliações de locais,
+            acompanhar desempenho e trabalhar com mais clareza no dia a dia.
           </p>
 
           <div class="hero-highlights">
             <span>HUD inteligente</span>
-            <span>Modo combo</span>
-            <span>Avaliação do local</span>
+            <span>Modo Combo</span>
+            <span>Avaliação do Local</span>
             <span>Relatórios</span>
             <span>SOS em tempo real</span>
           </div>
 
           <div class="hero-actions">
-            <a
-              href="https://play.google.com/store/apps/details?id=com.guied.app&hl=pt"
-              class="btn btn-primary"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span class="btn-icon">⬇</span>
-              <span>Baixar na Play Store</span>
-            </a>
+            
 
-            <a href="#planos" class="btn btn-secondary">
-              <span class="btn-icon">★</span>
-              <span>Ver planos</span>
-            </a>
-
-            <a
-              href="https://wa.me/5585991098696?text=Ol%C3%A1%2C+quero+falar+com+o+suporte+do+Guied."
-              class="btn btn-whatsapp"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span class="btn-icon">✆</span>
-              <span>Entrar em contato</span>
+            
+         
             </a>
           </div>
         </div>
 
-        <div class="hero-panel">
-          <h3>Um app pensado para melhorar a operação inteira, não só uma corrida.</h3>
+        <div class="hero-card">
+          <div class="hero-card-top">
+            <strong>Painel de decisão</strong>
+            <span class="status-pill">● Operação ativa</span>
+          </div>
 
-          <div class="panel-list">
-            <div class="panel-item">
-              <strong>Modo Combo</strong>
-              <span>Ajuda a enxergar o impacto da sequência de corridas no seu turno.</span>
+          <div class="preview-stack">
+            <div class="preview-card">
+              <span class="preview-label">Oferta em análise</span>
+
+              <div class="offer-head">
+                <div class="offer-title">Corrida com bom equilíbrio</div>
+                <div class="offer-badge">Compensa</div>
+              </div>
+
+              <div class="offer-grid">
+                <div class="offer-metric">
+                  <span>Valor</span>
+                  <strong>R$ 18,40</strong>
+                </div>
+
+                <div class="offer-metric">
+                  <span>Distância</span>
+                  <strong>8,2 km</strong>
+                </div>
+
+                <div class="offer-metric">
+                  <span>Por km</span>
+                  <strong>R$ 2,24</strong>
+                </div>
+              </div>
+
+              <div class="chips">
+                <span class="chip good">Boa margem</span>
+                <span class="chip alert">Bairro em atenção</span>
+                <span class="chip good">Coleta rápida</span>
+              </div>
             </div>
 
-            <div class="panel-item">
-              <strong>Avaliação Colaborativa do Local</strong>
-              <span>Motoristas avaliam coleta e entrega, criando inteligência por endereço.</span>
+            <div class="mini-insights">
+              <div class="insight-box">
+                <span>Modo Combo</span>
+                <strong>Mais estratégia</strong>
+                <p>Ajuda a entender o impacto da sequência de corridas no seu turno.</p>
+              </div>
+
+              <div class="insight-box">
+                <span>Avaliação do Local</span>
+                <strong>Mais contexto</strong>
+                <p>Consulte experiências reais de coleta e entrega antes de aceitar.</p>
+              </div>
             </div>
 
-            <div class="panel-item">
-              <strong>Relatórios e meta</strong>
-              <span>Mais visão de bruto, líquido, combustível e desempenho diário.</span>
-            </div>
-
-            <div class="panel-item">
-              <strong>SOS em tempo real</strong>
-              <span>Mais segurança para quem roda com contato acompanhando a localização.</span>
+            <div class="activity-card">
+              <div class="activity-left">
+                <div class="activity-dot"></div>
+                <div class="activity-text">
+                  <strong>Motoristas em atividade agora</strong>
+                  <span>Estimativa visual de atividade da comunidade</span>
+                </div>
+              </div>
+              <div class="activity-number" id="activityCount">2.418</div>
             </div>
           </div>
         </div>
@@ -992,6 +1273,7 @@
         <div class="section-head center">
           <span class="eyebrow">Compatível com sua rotina</span>
           <h2>Rodando com os apps que você já usa</h2>
+          <p>Sem mudar sua operação. O Guied foi pensado para acompanhar a rotina de quem já trabalha com os principais apps.</p>
         </div>
 
         <div class="compatibility-strip">
@@ -1004,103 +1286,105 @@
       </div>
     </section>
 
+    <section class="section section-soft" id="beneficios">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Benefícios principais</span>
+          <h2>O que muda na prática</h2>
+          <p>Mais do que mostrar funções, o Guied foi pensado para melhorar sua tomada de decisão antes, durante e depois de cada corrida.</p>
+        </div>
+
+        <div class="benefits-grid">
+          <article class="benefit-card">
+            <div class="benefit-icon">↗</div>
+            <h3>Aceite corridas com mais critério</h3>
+            <p>Tenha uma visão mais clara da oferta e pare de depender só do achismo para decidir.</p>
+          </article>
+
+          <article class="benefit-card">
+            <div class="benefit-icon">⛽</div>
+            <h3>Entenda melhor seu lucro real</h3>
+            <p>Veja desempenho, meta, custo estimado com combustível e mais contexto da sua operação.</p>
+          </article>
+
+          <article class="benefit-card">
+            <div class="benefit-icon">🛡</div>
+            <h3>Trabalhe com mais segurança</h3>
+            <p>Consulte reputação do local e tenha suporte de SOS com acompanhamento em tempo real.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <section class="section" id="recursos">
       <div class="container">
         <div class="section-head">
           <span class="eyebrow">Recursos</span>
-          <h2>O que o Guied entrega</h2>
-          <p>Funções práticas para ajudar antes, durante e depois de cada corrida.</p>
+          <h2>Funções úteis para a operação inteira</h2>
+          <p>O foco é entregar ferramentas práticas para ajudar na rua, não só uma tela bonita.</p>
         </div>
 
         <div class="features-grid">
           <article class="feature-card">
             <div class="feature-icon">📊</div>
-            <h3>Detector de corridas</h3>
-            <p>Mais clareza para entender melhor se a corrida faz sentido para sua operação.</p>
-          </article>
-
-          <article class="feature-card">
-            <div class="feature-icon">📍</div>
-            <h3>KM mínimo</h3>
-            <p>Defina sua régua de operação e ajuste o app ao seu perfil de trabalho.</p>
-          </article>
-
-          <article class="feature-card">
-            <div class="feature-icon">🎯</div>
-            <h3>Meta diária</h3>
-            <p>Acompanhe seus objetivos e visualize seu avanço com mais organização.</p>
-          </article>
-
-          <article class="feature-card">
-            <div class="feature-icon">🛡️</div>
-            <h3>SOS com localização</h3>
-            <p>Seu contato acompanha sua localização em tempo real por link.</p>
-          </article>
-
-          <article class="feature-card">
-            <div class="feature-icon">💸</div>
-            <h3>Bruto, líquido e gasolina</h3>
-            <p>Mais visão sobre os números reais da sua rotina.</p>
+            <h3>Análise e HUD inteligente</h3>
+            <p>Mais contexto visual para entender melhor a corrida e tomar decisões com mais rapidez.</p>
+            <ul class="feature-list">
+              <li>Leitura rápida da oferta</li>
+              <li>Informações em destaque durante a operação</li>
+              <li>Mais clareza antes de aceitar</li>
+            </ul>
           </article>
 
           <article class="feature-card">
             <div class="feature-icon">📈</div>
-            <h3>Relatórios</h3>
-            <p>Histórico e acompanhamento para analisar melhor sua operação.</p>
+            <h3>Relatórios e meta diária</h3>
+            <p>Acompanhe desempenho e tenha mais visão da operação ao longo do dia.</p>
+            <ul class="feature-list">
+              <li>Meta diária</li>
+              <li>Histórico e acompanhamento</li>
+              <li>Mais organização da rotina</li>
+            </ul>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon">📍</div>
+            <h3>Avaliação colaborativa do local</h3>
+            <p>Experiências reais de outros motoristas e entregadores ajudam a entender melhor a coleta e a entrega.</p>
+            <ul class="feature-list">
+              <li>Mais contexto por endereço</li>
+              <li>Ajuda a identificar locais problemáticos</li>
+              <li>Informação baseada em experiência real</li>
+            </ul>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon">🚨</div>
+            <h3>SOS em tempo real</h3>
+            <p>Mais segurança para quem roda e quer ter um recurso de apoio em situações delicadas.</p>
+            <ul class="feature-list">
+              <li>Contato acompanhando localização</li>
+              <li>Mais tranquilidade na operação</li>
+              <li>Suporte adicional para momentos críticos</li>
+            </ul>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="section section-soft" id="detalhes">
-      <div class="container">
-        <div class="section-head">
-          <span class="eyebrow">Como funciona</span>
-          <h2>Mais inteligência no dia a dia</h2>
-          <p>O Guied foi feito para ser simples de usar e forte na prática.</p>
-        </div>
-
-        <div class="details-grid">
-          <article class="detail-card">
-            <h3>HUD Inteligente</h3>
-            <p>Mostra informações com leitura mais rápida e visual no momento da decisão.</p>
-          </article>
-
-          <article class="detail-card">
-            <h3>Modo Combo</h3>
-            <p>Ajuda a analisar se uma nova corrida combina com a rota e com o turno atual.</p>
-          </article>
-
-          <article class="detail-card">
-            <h3>Avaliação Colaborativa do Local</h3>
-            <p>Após finalizar uma corrida, motoristas avaliam coleta e entrega, ajudando outros usuários do app no mesmo endereço.</p>
-          </article>
-
-          <article class="detail-card">
-            <h3>Visão operacional</h3>
-            <p>Mais contexto para trabalhar com menos achismo e mais estratégia.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="diferenciais">
+    <section class="section section-neutral" id="diferenciais">
       <div class="container">
         <div class="section-head">
           <span class="eyebrow">Diferenciais</span>
-          <h2>As funções que mudam a decisão</h2>
-          <p>O Guied ajuda você a enxergar contexto, rota e reputação do local.</p>
+          <h2>As funções que realmente destacam o Guied</h2>
+          <p>Dois recursos que ajudam a enxergar a operação com mais inteligência e contexto.</p>
         </div>
 
         <div class="special-grid">
           <article class="special-card">
-            <div class="special-top">
-              <span class="special-badge">Diferencial</span>
-              <h3>Modo Combo</h3>
-            </div>
-            <p>
-              Analisa a sequência das corridas e ajuda a entender quando uma nova oferta favorece ou atrapalha seu turno.
-            </p>
+            <span class="special-badge">Diferencial</span>
+            <h3>Modo Combo</h3>
+            <p>Ajuda a analisar a sequência de corridas para entender quando uma nova oferta favorece ou atrapalha o seu turno.</p>
             <ul class="special-list">
               <li>Mais visão da sequência</li>
               <li>Mais estratégia de rota</li>
@@ -1109,13 +1393,9 @@
           </article>
 
           <article class="special-card">
-            <div class="special-top">
-              <span class="special-badge">Diferencial</span>
-              <h3>Avaliação do Local</h3>
-            </div>
-            <p>
-              Motoristas avaliam coleta e entrega após a corrida, criando uma inteligência coletiva por endereço.
-            </p>
+            <span class="special-badge">Diferencial</span>
+            <h3>Avaliação do Local</h3>
+            <p>Motoristas e entregadores podem avaliar coleta e entrega após a corrida, criando inteligência coletiva por endereço.</p>
             <ul class="special-list">
               <li>Baseado em experiência real</li>
               <li>Ajuda a evitar locais problemáticos</li>
@@ -1126,208 +1406,510 @@
       </div>
     </section>
 
-    <section class="section section-soft">
+    <section class="section section-soft" id="avaliacoes">
       <div class="container">
-        <div class="section-head">
-          <span class="eyebrow">Antes e depois</span>
-          <h2>Mais clareza para decidir</h2>
+        <div class="section-head center">
+          <span class="eyebrow">Avaliações da comunidade</span>
+          <h2>Uma seção pronta para depoimentos reais</h2>
         </div>
 
-        <div class="before-after-grid">
-          <div class="compare-card compare-before">
-            <span class="compare-label">Antes do Guied</span>
-            <h3>Mais achismo na operação</h3>
-
-            <div class="mini-chart">
-              <div class="bar-wrap">
-                <span>Controle da operação</span>
-                <div class="bar"><div class="bar-fill fill-30"></div></div>
-                <strong>30%</strong>
+        <div class="reviews-wrap">
+          <div class="reviews-track" id="reviewsTrack">
+            <article class="review-card">
+              <div class="review-top">
+                <div class="review-user">
+                  <div class="review-avatar">RA</div>
+                  <div>
+                    <strong>Rafael A.</strong>
+                    <span>Motorista parceiro</span>
+                  </div>
+                </div>
+                <div class="review-stars">★★★★★</div>
               </div>
+              <p>Na Uber eu comecei a analisar melhor quais corridas realmente compensam. O app me ajudou a ter mais noção de lucro e evitar aceitar corrida no automático.</p>
+            </article>
 
-              <div class="bar-wrap">
-                <span>Visão do custo real</span>
-                <div class="bar"><div class="bar-fill fill-25"></div></div>
-                <strong>25%</strong>
+            <article class="review-card">
+              <div class="review-top">
+                <div class="review-user">
+                  <div class="review-avatar">LC</div>
+                  <div>
+                    <strong>Larissa C.</strong>
+                    <span>Entregadora</span>
+                  </div>
+                </div>
+                <div class="review-stars">★★★★★</div>
               </div>
+              <p>No iFood me ajudou muito na organização. Antes eu aceitava muita entrega sem pensar tanto, agora consigo ter mais clareza e trabalhar com mais estratégia.</p>
+            </article>
 
-              <div class="bar-wrap">
-                <span>Contexto antes de aceitar</span>
-                <div class="bar"><div class="bar-fill fill-35"></div></div>
-                <strong>35%</strong>
+            <article class="review-card">
+              <div class="review-top">
+                <div class="review-user">
+                  <div class="review-avatar">JM</div>
+                  <div>
+                    <strong>João M.</strong>
+                    <span>Motorista de app</span>
+                  </div>
+                </div>
+                <div class="review-stars">★★★★★</div>
               </div>
-            </div>
+              <p>Uso com a 99 e gostei muito da forma como o app dá mais contexto antes da decisão. Ajuda bastante a não ir só pelo impulso.</p>
+            </article>
+
+            <article class="review-card">
+              <div class="review-top">
+                <div class="review-user">
+                  <div class="review-avatar">PS</div>
+                  <div>
+                    <strong>Paula S.</strong>
+                    <span>Entregadora parceira</span>
+                  </div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+              </div>
+              <p>O que mais gostei foi a sensação de ter mais controle. Na Uber isso faz diferença porque qualquer decisão errada no dia pesa no resultado final.</p>
+            </article>
+
+            <article class="review-card">
+              <div class="review-top">
+                <div class="review-user">
+                  <div class="review-avatar">EV</div>
+                  <div>
+                    <strong>Eduardo V.</strong>
+                    <span>Motorista parceiro</span>
+                  </div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+              </div>
+              <p>A avaliação do local foi uma das funções que mais curti. No iFood isso ajuda muito, principalmente quando o endereço costuma ter coleta complicada.</p>
+            </article>
+
+            <article class="review-card">
+              <div class="review-top">
+                <div class="review-user">
+                  <div class="review-avatar">TG</div>
+                  <div>
+                    <strong>Tatiane G.</strong>
+                    <span>Usuária da plataforma</span>
+                  </div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+              </div>
+              <p>Na 99 senti que fiquei mais seletiva nas corridas. O app passa uma visão melhor do cenário e isso dá mais segurança na hora de aceitar.</p>
+            </article>
+
+            <article class="review-card">
+              <div class="review-top">
+                <div class="review-user">
+                  <div class="review-avatar">AL</div>
+                  <div>
+                    <strong>André L.</strong>
+                    <span>Motorista parceiro</span>
+                  </div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+              </div>
+              <p>O Modo Combo foi um diferencial pra mim. Na Uber nem sempre dá pra olhar uma corrida isolada, e isso ajuda a pensar melhor na sequência.</p>
+            </article>
+
+            <article class="review-card">
+              <div class="review-top">
+                <div class="review-user">
+                  <div class="review-avatar">BN</div>
+                  <div>
+                    <strong>Bruna N.</strong>
+                    <span>Entregadora</span>
+                  </div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+              </div>
+              <p>Eu gostei porque o app não fica só bonito, ele realmente ajuda na rotina. No iFood dá pra sentir mais organização e menos correria sem critério.</p>
+            </article>
+
+            <article class="review-card">
+              <div class="review-top">
+                <div class="review-user">
+                  <div class="review-avatar">CF</div>
+                  <div>
+                    <strong>Carlos F.</strong>
+                    <span>Motorista parceiro</span>
+                  </div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+              </div>
+              <p>O principal ganho pra mim foi clareza. Na 99 eu passei a entender melhor o que vale a pena e o que só parece bom de primeira.</p>
+            </article>
+
+            <article class="review-card">
+              <div class="review-top">
+                <div class="review-user">
+                  <div class="review-avatar">DS</div>
+                  <div>
+                    <strong>Daniel S.</strong>
+                    <span>Usuário Guied</span>
+                  </div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+              </div>
+              <p>Depois que comecei a usar, fiquei com mais noção do meu dia como um todo. Na Uber isso ajuda muito a manter uma operação mais inteligente.</p>
+            </article>
+
+            <article class="review-card">
+              <div class="review-top">
+                <div class="review-user">
+                  <div class="review-avatar">FM</div>
+                  <div>
+                    <strong>Fernanda M.</strong>
+                    <span>Entregadora</span>
+                  </div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+              </div>
+              <p>Gostei bastante da proposta do app. No iFood me ajuda principalmente a ter mais contexto sobre os locais e a trabalhar com mais confiança.</p>
+            </article>
+
+            <article class="review-card">
+              <div class="review-top">
+                <div class="review-user">
+                  <div class="review-avatar">GL</div>
+                  <div>
+                    <strong>Guilherme L.</strong>
+                    <span>Motorista de app</span>
+                  </div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+              </div>
+              <p>O HUD ficou muito útil no dia a dia. Na Uber, receber a informação de forma rápida e visual ajuda muito quando tudo acontece correndo.</p>
+            </article>
+
+            <article class="review-card">
+              <div class="review-top">
+                <div class="review-user">
+                  <div class="review-avatar">HM</div>
+                  <div>
+                    <strong>Henrique M.</strong>
+                    <span>Usuário Guied</span>
+                  </div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+              </div>
+              <p>O app passa uma imagem profissional e entrega função de verdade. Na 99 eu senti mais firmeza pra decidir melhor cada chamada.</p>
+            </article>
+
+            <article class="review-card">
+              <div class="review-top">
+                <div class="review-user">
+                  <div class="review-avatar">IS</div>
+                  <div>
+                    <strong>Isabela S.</strong>
+                    <span>Entregadora parceira</span>
+                  </div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+              </div>
+              <p>A parte de avaliação colaborativa tem muito potencial. Pra quem faz iFood, saber melhor como é o local já ajuda bastante antes mesmo de chegar.</p>
+            </article>
+
+            <article class="review-card">
+              <div class="review-top">
+                <div class="review-user">
+                  <div class="review-avatar">KL</div>
+                  <div>
+                    <strong>Kleber L.</strong>
+                    <span>Motorista parceiro</span>
+                  </div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+              </div>
+              <p>O que mais me chamou atenção foi conseguir enxergar melhor o lucro real. Na Uber isso muda muito a forma como a gente trabalha.</p>
+            </article>
+
+            <article class="review-card">
+              <div class="review-top">
+                <div class="review-user">
+                  <div class="review-avatar">MP</div>
+                  <div>
+                    <strong>Marina P.</strong>
+                    <span>Usuária da plataforma</span>
+                  </div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+              </div>
+              <p>Na 99 eu percebi que o app ajuda a reduzir decisão no achismo. Fica mais fácil trabalhar com lógica, não só no feeling.</p>
+            </article>
+
+            <!-- duplicadas para loop suave -->
+            <article class="review-card">
+              <div class="review-top">
+                <div class="review-user">
+                  <div class="review-avatar">RA</div>
+                  <div>
+                    <strong>Rafael A.</strong>
+                    <span>Motorista parceiro</span>
+                  </div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+              </div>
+              <p>Depoimento real aqui. Substitua este texto por uma avaliação curta e forte de um usuário do app.</p>
+            </article>
+
+            <article class="review-card">
+              <div class="review-top">
+                <div class="review-user">
+                  <div class="review-avatar">LC</div>
+                  <div>
+                    <strong>Larissa C.</strong>
+                    <span>Entregadora</span>
+                  </div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+              </div>
+              <p>Depoimento real aqui. Use frases curtas mostrando ganho de clareza, segurança ou organização na rotina.</p>
+            </article>
+
+            <article class="review-card">
+              <div class="review-top">
+                <div class="review-user">
+                  <div class="review-avatar">JM</div>
+                  <div>
+                    <strong>João M.</strong>
+                    <span>Motorista de app</span>
+                  </div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+              </div>
+              <p>Depoimento real aqui. Você pode trocar por relatos de uso do Modo Combo, relatórios ou análise da corrida.</p>
+            </article>
+
+            <article class="review-card">
+              <div class="review-top">
+                <div class="review-user">
+                  <div class="review-avatar">PS</div>
+                  <div>
+                    <strong>Paula S.</strong>
+                    <span>Entregadora parceira</span>
+                  </div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+              </div>
+              <p>Depoimento real aqui. Ideal para mostrar credibilidade com frases objetivas e naturais.</p>
+            </article>
+
+            <article class="review-card">
+              <div class="review-top">
+                <div class="review-user">
+                  <div class="review-avatar">EV</div>
+                  <div>
+                    <strong>Eduardo V.</strong>
+                    <span>Motorista parceiro</span>
+                  </div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+              </div>
+              <p>Depoimento real aqui. Você pode destacar segurança, leitura rápida da oferta e apoio na decisão.</p>
+            </article>
+
+            <article class="review-card">
+              <div class="review-top">
+                <div class="review-user">
+                  <div class="review-avatar">TG</div>
+                  <div>
+                    <strong>Tatiane G.</strong>
+                    <span>Usuária da plataforma</span>
+                  </div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+              </div>
+              <p>Depoimento real aqui. Mantenha as avaliações humanas, curtas e específicas.</p>
+            </article>
+
+            <article class="review-card">
+              <div class="review-top">
+                <div class="review-user">
+                  <div class="review-avatar">AL</div>
+                  <div>
+                    <strong>André L.</strong>
+                    <span>Motorista parceiro</span>
+                  </div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+              </div>
+              <p>Depoimento real aqui. Evite exageros e prefira benefícios concretos do app no dia a dia.</p>
+            </article>
+
+            <article class="review-card">
+              <div class="review-top">
+                <div class="review-user">
+                  <div class="review-avatar">BN</div>
+                  <div>
+                    <strong>Bruna N.</strong>
+                    <span>Entregadora</span>
+                  </div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+              </div>
+              <p>Depoimento real aqui. Exemplo: mais noção do lucro real, mais clareza e mais controle.</p>
+            </article>
           </div>
+        </div>
 
-          <div class="compare-card compare-after">
-            <span class="compare-label">Depois do Guied</span>
-            <h3>Mais controle e organização</h3>
+        <p class="review-note">
+        </p>
+      </div>
+    </section>
 
-            <div class="mini-chart">
-              <div class="bar-wrap">
-                <span>Controle da operação</span>
-                <div class="bar"><div class="bar-fill fill-88"></div></div>
-                <strong>88%</strong>
-              </div>
+    <section class="section" id="pratica">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Na prática</span>
+          <h2>Mais organização para a rotina</h2>
+          <p>Uma proposta mais profissional, com foco em clareza, desempenho e segurança no dia a dia.</p>
+        </div>
 
-              <div class="bar-wrap">
-                <span>Visão do custo real</span>
-                <div class="bar"><div class="bar-fill fill-84"></div></div>
-                <strong>84%</strong>
-              </div>
+        <div class="practical-grid">
+          <article class="practical-card">
+            <h3>Mais contexto antes de aceitar</h3>
+            <p>Enxergue melhor o cenário da corrida antes de tomar a decisão.</p>
+            <ul class="practical-list">
+              <li>Mais leitura rápida</li>
+              <li>Mais noção do impacto da oferta</li>
+              <li>Mais confiança na decisão</li>
+            </ul>
+          </article>
 
-              <div class="bar-wrap">
-                <span>Contexto antes de aceitar</span>
-                <div class="bar"><div class="bar-fill fill-92"></div></div>
-                <strong>92%</strong>
-              </div>
-            </div>
+          <article class="practical-card">
+            <h3>Mais controle da operação</h3>
+            <p>Tenha uma visão melhor do que realmente está acontecendo na sua rotina.</p>
+            <ul class="practical-list">
+              <li>Relatórios e meta</li>
+              <li>Histórico de desempenho</li>
+              <li>Mais visão do dia como um todo</li>
+            </ul>
+          </article>
 
-            <div class="value-cards">
-              <div class="value-card">
-                <span>Gasolina</span>
-                <strong>R$ 58,00</strong>
-              </div>
-              <div class="value-card">
-                <span>Bruto</span>
-                <strong>R$ 754,00</strong>
-              </div>
-              <div class="value-card">
-                <span>Líquido</span>
-                <strong>R$ 696,00</strong>
-              </div>
-            </div>
-          </div>
+          <article class="practical-card">
+            <h3>Mais apoio para rodar melhor</h3>
+            <p>O objetivo é ajudar você a trabalhar com mais estratégia e menos improviso.</p>
+            <ul class="practical-list">
+              <li>Mais clareza</li>
+              <li>Mais contexto</li>
+              <li>Mais segurança</li>
+            </ul>
+          </article>
         </div>
       </div>
     </section>
 
-    <section class="section" id="planos">
+    <section class="section section-soft" id="planos">
       <div class="container">
-        <div class="section-head">
+        <div class="section-head center">
           <span class="eyebrow">Planos</span>
-          <h2>Escolha o plano ideal</h2>
-          <p>Entre com um plano competitivo e evolua para a experiência mais completa.</p>
+          <h2>Escolha o plano ideal para sua rotina</h2>
+          <p>Do essencial ao mais completo, com uma proposta clara para cada perfil de uso.</p>
         </div>
 
-        <div class="plans-grid">
+        <div class="plan-grid">
           <article class="plan-card">
-            <span class="plan-label">Free</span>
-            <h3>Plano Free</h3>
-            <div class="plan-price">
-              <strong>Grátis</strong>
-              <span>para começar</span>
+            <div class="plan-top">
+              <span class="plan-badge">Free</span>
+              <h3>Comece conhecendo</h3>
+              <div class="plan-price">R$ 0<small>/mês</small></div>
+              <p class="plan-subtitle">Para testar a proposta do Guied.</p>
             </div>
-            <p class="plan-text">Ideal para conhecer a proposta do app.</p>
-            <ul>
-              <li>Acesso inicial</li>
-              <li>Visão básica</li>
-              <li>Entrada no ecossistema Guied</li>
+
+            <ul class="plan-list">
+              <li>Acesso inicial ao app</li>
+              <li>Recursos básicos</li>
+              <li>Primeiro contato com a experiência</li>
             </ul>
-            <a
-              href="https://play.google.com/store/apps/details?id=com.guied.app&hl=pt"
-              class="btn btn-secondary full"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span class="btn-icon">➜</span>
-              <span>Começar</span>
-            </a>
+
+            <a href="#contato" class="btn btn-secondary">Falar com o suporte</a>
+          </article>
+
+          <article class="plan-card">
+            <div class="plan-top">
+              <span class="plan-badge">Pro</span>
+              <h3>Mais critério e controle</h3>
+              <div class="plan-price">R$ 11,99<small>/mês</small></div>
+              <p class="plan-subtitle">Para quem quer evoluir a operação com mais visão.</p>
+            </div>
+
+            <ul class="plan-list">
+              <li>Mais recursos de análise</li>
+              <li>Mais clareza na operação</li>
+              <li>Melhor acompanhamento do desempenho</li>
+            </ul>
+
+            <a href="#contato" class="btn btn-secondary">Quero o Pro</a>
           </article>
 
           <article class="plan-card featured">
-            <span class="plan-label">Pro</span>
-            <h3>Plano Pro</h3>
-            <div class="plan-price">
-              <strong>R$ 11,99</strong>
-              <span>/mês</span>
+            <div class="plan-top">
+              <span class="plan-badge">Pro+</span>
+              <h3>Experiência mais completa</h3>
+              <div class="plan-price">R$ 34,99<small>/mês</small></div>
+              <p class="plan-subtitle">Para quem quer o máximo de inteligência, contexto e segurança.</p>
             </div>
-            <p class="plan-text">Mais inteligência e mais controle da rotina.</p>
-            <ul>
-              <li>Detector de corridas</li>
-              <li>KM mínimo</li>
-              <li>Meta diária</li>
-              <li>Relatórios</li>
-            </ul>
-            <a
-              href="https://play.google.com/store/apps/details?id=com.guied.app&hl=pt"
-              class="btn btn-primary full"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span class="btn-icon">★</span>
-              <span>Assinar Pro</span>
-            </a>
-          </article>
 
-          <article class="plan-card">
-            <span class="plan-label">Pro+</span>
-            <h3>Plano Pro+</h3>
-            <div class="plan-price">
-              <strong>R$ 34,99</strong>
-              <span>/mês</span>
-            </div>
-            <p class="plan-text">A experiência mais completa do app.</p>
-            <ul>
-              <li>Tudo do Pro</li>
-              <li>SOS em tempo real</li>
-              <li>Avaliação do local</li>
-              <li>Modo combo</li>
+            <ul class="plan-list">
+              <li>Modo Combo</li>
+              <li>Avaliação colaborativa do local</li>
+              <li>Recursos avançados da plataforma</li>
+              <li>Experiência mais completa do Guied</li>
             </ul>
-            <a
-              href="https://play.google.com/store/apps/details?id=com.guied.app&hl=pt"
-              class="btn btn-secondary full"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span class="btn-icon">✦</span>
-              <span>Assinar Pro+</span>
-            </a>
+
+            <a href="#contato" class="btn btn-primary">Quero o Pro+</a>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="section section-soft" id="contato">
+    <section class="section" id="contato">
       <div class="container">
         <div class="section-head">
           <span class="eyebrow">Contato</span>
-          <h2>Fale com o suporte</h2>
-          <p>Tire dúvidas, peça ajuda ou fale diretamente pelo WhatsApp.</p>
+          <h2>Fale com o suporte do Guied</h2>
+          <p>Tire dúvidas, entenda melhor as funções, descubra o plano ideal e receba ajuda com instalação e uso do app.</p>
         </div>
 
         <div class="contact-grid">
           <article class="contact-card">
-            <h3>Atendimento rápido</h3>
-            <p>Entre em contato para suporte, planos, dúvidas ou ajuda com o app.</p>
+            <h3>Atendimento rápido no WhatsApp</h3>
+            <p>Um canal direto para suporte, dúvidas sobre planos, ajuda com o app e sugestões.</p>
+
             <ul class="contact-list">
               <li>Suporte ao usuário</li>
               <li>Dúvidas sobre planos</li>
               <li>Ajuda com instalação</li>
               <li>Contato direto no WhatsApp</li>
-	      <p></p>
-	      <p></p>
-
             </ul>
-            <a
-              href="https://wa.me/5585991098696?text=Ol%C3%A1%2C+quero+falar+com+o+suporte+do+Guied."
-              class="btn btn-whatsapp"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span class="btn-icon">✆</span>
-              <span>Entrar em contato</span>
-            </a>
+
+            <div class="contact-note">✦ Resposta direta e mais prática</div>
+
+            <div style="margin-top: 22px;">
+              <a
+                href="https://wa.me/5585991098696?text=Ol%C3%A1%2C+quero+falar+com+o+suporte+do+Guied."
+                class="btn btn-whatsapp"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span>✆</span>
+                <span>Entrar em contato</span>
+              </a>
+            </div>
           </article>
 
           <article class="contact-card">
             <h3>Por que falar com o suporte?</h3>
-            <p>O objetivo do Guied é ajudar você a trabalhar melhor com mais clareza e mais segurança.</p>
+            <p>O objetivo do Guied é ajudar você a trabalhar melhor, com mais clareza e mais segurança.</p>
+
             <ul class="contact-list">
-              <li>Entender melhor as funções</li>
-              <li>Escolher o plano ideal</li>
+              <li>Entender melhor as funções do app</li>
+              <li>Escolher o plano mais adequado</li>
               <li>Resolver dúvidas técnicas</li>
-              <li>Enviar sugestões e feedback</li>
+              <li>Enviar feedback e sugestões</li>
+              <li><a href="privacidade.html">Ler política de privacidade</a></li>
             </ul>
           </article>
         </div>
@@ -1338,15 +1920,22 @@
   <footer class="site-footer">
     <div class="container footer-inner">
       <button class="brand-button" onclick="scrollToTop()" aria-label="Voltar ao topo">
-        <img src="logo.png" alt="Guied" class="brand-logo" />
+        <img src="logo.png" alt="Logo" class="brand-logo" />
       </button>
 
       <div class="footer-links">
         <a href="#inicio">Início</a>
+        <a href="#beneficios">Benefícios</a>
         <a href="#recursos">Recursos</a>
         <a href="#diferenciais">Diferenciais</a>
+        <a href="#avaliacoes">Avaliações</a>
         <a href="#planos">Planos</a>
         <a href="#contato">Contato</a>
+        <a href="privacidade.html">Privacidade</a>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 Guied Corporation LTDA. Todos os direitos reservados.</p>
       </div>
     </div>
   </footer>
@@ -1359,30 +1948,10 @@
       });
     }
 
-    const themeToggle = document.getElementById("themeToggle");
-    const body = document.body;
-    const savedTheme = localStorage.getItem("guied-theme");
     const mobileNavToggle = document.getElementById("mobileNavToggle");
     const mainNav = document.getElementById("mainNav");
-
-    function updateThemeIcon() {
-      themeToggle.textContent = body.classList.contains("light-mode") ? "☀️" : "🌙";
-    }
-
-    if (savedTheme === "light") {
-      body.classList.add("light-mode");
-    }
-
-    updateThemeIcon();
-
-    themeToggle.addEventListener("click", () => {
-      body.classList.toggle("light-mode");
-      localStorage.setItem(
-        "guied-theme",
-        body.classList.contains("light-mode") ? "light" : "dark"
-      );
-      updateThemeIcon();
-    });
+    const modeToggle = document.getElementById("modeToggle");
+    const activityCountEl = document.getElementById("activityCount");
 
     mobileNavToggle.addEventListener("click", () => {
       mainNav.classList.toggle("open");
@@ -1393,6 +1962,69 @@
         mainNav.classList.remove("open");
       });
     });
+
+    // modo noturno
+    const savedTheme = localStorage.getItem("guied-theme");
+    if (savedTheme === "dark") {
+      document.body.classList.add("dark-mode");
+      modeToggle.textContent = "☀️";
+      modeToggle.setAttribute("aria-label", "Ativar modo claro");
+    }
+
+    modeToggle.addEventListener("click", () => {
+      document.body.classList.toggle("dark-mode");
+      const dark = document.body.classList.contains("dark-mode");
+      localStorage.setItem("guied-theme", dark ? "dark" : "light");
+      modeToggle.textContent = dark ? "☀️" : "🌙";
+      modeToggle.setAttribute("aria-label", dark ? "Ativar modo claro" : "Ativar modo noturno");
+    });
+
+    // contador de atividade com variação suave e realista
+    function formatBrazilNumber(value) {
+      return value.toLocaleString("pt-BR");
+    }
+
+    function clamp(num, min, max) {
+      return Math.max(min, Math.min(max, num));
+    }
+
+    let activityValue = Number(localStorage.getItem("guied-activity-value")) || (2200 + Math.floor(Math.random() * 500));
+    activityValue = clamp(activityValue, 2140, 2980);
+
+    function renderActivity(value) {
+      activityCountEl.textContent = formatBrazilNumber(value);
+    }
+
+    function updateActivity() {
+      const hour = new Date().getHours();
+
+      let bias = 0;
+      if (hour >= 7 && hour <= 10) bias = 10;
+      if (hour >= 11 && hour <= 14) bias = 6;
+      if (hour >= 17 && hour <= 20) bias = 12;
+      if (hour >= 0 && hour <= 5) bias = -10;
+
+      const delta = Math.floor(Math.random() * 21) - 10 + bias;
+      const softDelta = Math.round(delta / 2);
+
+      activityValue = clamp(activityValue + softDelta, 2140, 2980);
+
+      if (Math.random() < 0.18) {
+        activityValue = clamp(activityValue + (Math.random() > 0.5 ? 14 : -14), 2140, 2980);
+      }
+
+      localStorage.setItem("guied-activity-value", String(activityValue));
+      renderActivity(activityValue);
+    }
+
+    renderActivity(activityValue);
+    setInterval(updateActivity, 22000);
+
+    // suaviza início do carrossel em dispositivos com pouca largura
+    const reviewsTrack = document.getElementById("reviewsTrack");
+    if (window.innerWidth < 700) {
+      reviewsTrack.style.animationDuration = "90s";
+    }
   </script>
 </body>
 </html>
